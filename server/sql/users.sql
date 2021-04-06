@@ -6,5 +6,6 @@ CREATE TABLE `users` (
     `session` VARCHAR(255),
     `reset_token` VARCHAR(6),
     `reset_token_timestamp` INT,
+    `enable` BOOLEAN,
     PRIMARY KEY (`username`, `email`)
 ) 

@@ -17,8 +17,13 @@ if (isset($_POST['action'])) {
             break;
 
         case "logout":
-            $sql = "SELECT * FROM users WHERE username = ?;";
-
+            if (isset($_POST['username']) && isset($_POST['session'])) {
+                $username = $_POST['username'];
+                $session = $_POST['session'];
+                logout($connection, $username, $session);
+            } else {
+                exit(errorMsg(400, "fail", "Missing username/session"));
+            }
             break;
 
         case "register":
@@ -26,7 +31,7 @@ if (isset($_POST['action'])) {
                 $username = $_POST['username'];
                 $email = $_POST['email'];
                 $password = md5($_POST['password']);
-                $avatar = $_FILES['avatar'];
+                $avatar = isset($_FILES['avatar']) ? $_FILES['avatar'] : null;
 
                 register($connection, $username, $email, $password, $avatar);
             } else {
@@ -41,9 +46,11 @@ if (isset($_POST['action'])) {
                 $password = $_POST['password'];
 
                 forgot($connection, $email, $token, $password);
+            } else {
+                exit(errorMsg(400, "fail", "Missing email"));
             }
             break;
-            
+
         default:
             exit(errorMsg(400, "fail", "Invalid action"));
     }
@@ -54,7 +61,7 @@ if (isset($_POST['action'])) {
 
 function login($connection, $username, $password)
 {
-    $user = getUser($connection, $username, null);
+    $user = getUserByName($connection, $username);
     if (isset($user)) {
         $password = md5($password);
 
@@ -62,6 +69,7 @@ function login($connection, $username, $password)
             $session = generateRandomString(255);
             updateSession($connection, $username, $session);
             //LOGGED IN, PASS $session to front end, store $session in sessionStorage;
+            echo ('logged in: ' . $session);
         } else {
             exit(errorMsg(400, "fail", "Invalid username/password"));
         }
@@ -72,12 +80,13 @@ function login($connection, $username, $password)
 
 function logout($connection, $username, $session)
 {
-    $user = getUser($connection, $username, null);
+    $user = getUserByName($connection, $username);
     if (isset($user)) {
         if (strcmp($user['session'], $session) == 0) {
             updateSession($connection, $username, NULL);
 
             // RETURN SUCCESS MESSAGE
+            echo ('logged out');
         } else {
             exit(errorMsg(400, "fail", "Invalid user or session"));
         }
@@ -88,21 +97,29 @@ function logout($connection, $username, $session)
 
 function register($connection, $username, $email, $password, $avatar)
 {
-    $user = getUser($connection, $username, $email);
+    $user = getUserByNameOrEmail($connection, $username, $email);
     if (isset($user)) {
         exit(errorMsg(400, "fail", "Username/email already exsists"));
     } else {
-        $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";
+        $sql = isset($avatar) ?
+            "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);" :
+            "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";
+
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param("sssb", $username, $email, $password, $avatar);
+        if (isset($avatar))
+            $stmt->bind_param("ssss", $username, $email, $password, $avatar);
+        else
+            $stmt->bind_param("sss", $username, $email, $password);
+
         $stmt->execute();
         // SUCCESS message
+        echo ('registered');
     }
 }
 
 function forgot($connection, $email, $token, $password)
 {
-    $user = getUser($connection, null, $email);
+    $user = getUserByEmail($connection, $email);
     if (isset($user)) {
         if (isset($token)) {
             if (isset($password)) {
@@ -116,6 +133,7 @@ function forgot($connection, $email, $token, $password)
                             $stmt2->bind_param("ss", $password, $email);
                             $stmt2->execute();
                             /**** SEND CONFIRM RESPONSE ****/
+                            echo ('Update pass');
                         } else {
                             // token expired. reset token and token_timestamp to null
                             $sql2 = "UPDATE users SET reset_token = NULL, reset_token_timestamp = NULL WHERE email = ?;";
@@ -142,6 +160,7 @@ function forgot($connection, $email, $token, $password)
             $stmt->execute();
             // SEND RESET EMAIL SOMEHOW $token
             // SEND confirm message
+            echo ('token: ' . $token);
         }
     } else {
         exit(errorMsg(400, "fail", "Email does not exsist"));
@@ -156,30 +175,43 @@ function updateSession($connection, $username, $session)
     $stmt->execute();
 }
 
-function getUser($connection, $username, $email)
+
+function getUserByNameOrEmail($connection, $username, $email)
 {
-
-    $sql = '';
-    $stmt = null;
-    if (isset($username) && isset($email)) {
-        $sql = "SELECT * FROM users WHERE username = ? OR email = ?;";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("ss", $username, $email);
-    } else if (isset($username)) {
-        $sql = "SELECT * FROM users WHERE username = ?;";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("s", $username);
-    } else if (isset($email)) {
-        $sql = "SELECT * FROM users WHERE email = ?;";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("s", $email);
-    } else {
-        return false;
-    }
-
+    $sql = "SELECT * FROM users WHERE username = ? OR email = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
     $result = $stmt->get_result();
     $user = $result->fetch_assoc();
 
-    return ($user);
+    return $user;
+}
+
+function getUserByName($connection, $username)
+{
+    $sql = "SELECT * FROM users WHERE username = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    return $user;
+}
+
+function getUserByEmail($connection, $email)
+{
+    $sql = "SELECT * FROM users WHERE email = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $email);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $user = $result->fetch_assoc();
+
+    return $user;
+}
+
+function getUserByPost()
+{
 }

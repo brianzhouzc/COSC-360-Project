@@ -2,7 +2,7 @@
 require_once 'helper.php';
 
 $host = "localhost";
-$database = "lab9";
+$database = "testdb";
 $user = "webuser";
 $password = "P@ssw0rd";
 
