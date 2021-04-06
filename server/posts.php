@@ -2,9 +2,10 @@
 require 'database.php';
 require_once 'helper.php';
 require_once 'users.php';
+
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
-    
+
     switch ($action) {
         case "create":
             break;
