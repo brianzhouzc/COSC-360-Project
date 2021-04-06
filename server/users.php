@@ -10,10 +10,12 @@ if (isset($_POST['action'])) {
             $sql = "SELECT * FROM users WHERE username = ?;";
 
             break;
+
         case "logout":
             $sql = "SELECT * FROM users WHERE username = ?;";
 
             break;
+
         case "register":
             if (isset($_POST['username']) && isset($_POST['email']) && isset($_POST['password'])) {
                 $username = $_POST['username'];
@@ -32,6 +34,7 @@ if (isset($_POST['action'])) {
                 exit(errorMsg(400, "fail", "Missing username/email/password"));
             }
             break;
+            
         case "forgot":
             if (isset($_POST['email'])) {
                 $email = $_POST['email'];

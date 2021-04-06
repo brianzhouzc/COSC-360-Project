@@ -4,7 +4,7 @@ require_once 'helper.php';
 $host = "localhost";
 $database = "lab9";
 $user = "webuser";
-$password = "P@ssw022rd";
+$password = "P@ssw0rd";
 
 $connection = mysqli_connect($host, $user, $password, $database);
 
