@@ -11,16 +11,16 @@ CREATE TABLE `users` (
 ) CREATE TABLE `posts` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `username` VARCHAR(255) NOT NULL,
-    `content` VARCHAR(32) NOT NULL,
-    `timestamp` BLOB,
-    `views` INT,
+    `content` VARCHAR NOT NULL,
+    `timestamp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `views` NOT NULL DEFAULT '0',
     PRIMARY KEY (`username`, `email`)
 ) CREATE TABLE `comments` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `post_id` INT NOT NULL,
     `username` VARCHAR(255) NOT NULL,
-    `content` VARCHAR(32) NOT NULL,
-    `timestamp` BLOB,
-    `views` INT,
+    `content` VARCHAR NOT NULL,
+    `timestamp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `views` NOT NULL DEFAULT '0',
     PRIMARY KEY (`username`, `email`)
 )
