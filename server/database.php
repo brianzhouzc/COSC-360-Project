@@ -1,8 +1,14 @@
 <?php
-	$servername = "localhost";
-	$username = "root";
-	$password = "";
-	$db="project";
-    
-	/*Create connection*/
-	$conn = mysqli_connect($servername, $username, $password,$db);
+require_once 'helper.php';
+
+$host = "localhost";
+$database = "lab9";
+$user = "webuser";
+$password = "P@ssw022rd";
+
+$connection = mysqli_connect($host, $user, $password, $database);
+
+$error = mysqli_connect_error();
+if ($error != null) {
+	exit(errorMsg(500, "error", "MySQL error."));
+}
