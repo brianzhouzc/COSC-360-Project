@@ -33,7 +33,14 @@ if (isset($_POST['action'])) {
             }
             break;
         case "forgot":
-            $sql = "SELECT * FROM users WHERE username = ?;";
+            if (isset($_POST['email'])) {
+                $email = $_POST['email'];
+                if (exsist($connection, null, $email)) {
+                    // SEND RESET EMAIL SOMEHOW
+                } else {
+                    exit(errorMsg(400, "fail", "Email does not exsist"));
+                }
+            }
 
             break;
     }
