@@ -3,6 +3,7 @@ CREATE TABLE `users` (
     `email` VARCHAR(255) NOT NULL,
     `password` VARCHAR(32) NOT NULL,
     `avatar` BLOB,
+    `session` VARCHAR(255),
     `reset_token` VARCHAR(6),
     `reset_token_timestamp` INT,
     PRIMARY KEY (`username`, `email`)

@@ -7,8 +7,13 @@ if (isset($_POST['action'])) {
     $sql = '';
     switch ($action) {
         case "login":
-            $sql = "SELECT * FROM users WHERE username = ?;";
-
+            if (isset($_POST['username']) && isset($_POST['password'])) {
+                $username = $_POST['username'];
+                $password = $_POST['password'];
+                login($connection, $username, $password);
+            } else {
+                exit(errorMsg(400, "fail", "Missing username/password"));
+            }
             break;
 
         case "logout":
@@ -22,24 +27,28 @@ if (isset($_POST['action'])) {
                 $email = $_POST['email'];
                 $password = md5($_POST['password']);
                 $avatar = $_FILES['avatar'];
-                if (exsist($connection, $username, $email)) {
+
+                $user = getUser($connection, $username, $email);
+                if (isset($user)) {
                     exit(errorMsg(400, "fail", "Username/email already exsists"));
                 } else {
                     $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";
                     $stmt = $connection->prepare($sql);
                     $stmt->bind_param("sssb", $username, $email, $password, $_FILES['avatar']);
                     $stmt->execute();
+                    // SUCCESS message
                 }
             } else {
                 exit(errorMsg(400, "fail", "Missing username/email/password"));
             }
             break;
-            
+
         case "forgot":
             if (isset($_POST['email'])) {
                 $email = $_POST['email'];
 
-                if (exsist($connection, null, $email)) {
+                $user = getUser($connection, null, $email);
+                if (isset($user)) {
                     if (isset($_POST['token'])) {
                         $token = $_POST['token'];
 
@@ -52,10 +61,10 @@ if (isset($_POST['action'])) {
                             $result = $stmt->get_result();
                             $user = $result->fetch_assoc();
 
-                            if (isset($user['token']) && isset($user['token_timestamp'])) {
-                                if (strcmp($token, $user['token']) == 0) {
+                            if (isset($user['reset_token']) && isset($user['reset_token_timestamp'])) {
+                                if (strcmp($token, $user['reset_token']) == 0) {
                                     //code sent less than an hour;
-                                    if (time() - $user['token_timestamp'] < 3600) {
+                                    if (time() - $user['reset_token_timestamp'] < 3600) {
                                         // Update password
                                         $sql2 = "UPDATE users SET password = ? WHERE email = ?";
                                         $stmt2 = $connection->prepare($sql2);
@@ -64,7 +73,7 @@ if (isset($_POST['action'])) {
                                         /**** SEND CONFIRM RESPONSE ****/
                                     } else {
                                         // token expired. reset token and token_timestamp to null
-                                        $sql2 = "UPDATE users SET token = NULL, token_timestamp = NULL WHERE email = ?;";
+                                        $sql2 = "UPDATE users SET reset_token = NULL, reset_token_timestamp = NULL WHERE email = ?;";
                                         $stmt2 = $connection->prepare($sql2);
                                         $stmt2->bind_param("s", $email);
                                         $stmt2->execute();
@@ -102,8 +111,51 @@ if (isset($_POST['action'])) {
     exit(errorMsg(400, "fail", "Missing action"));
 }
 
-function exsist($connection, $username, $email)
+function login($connection, $username, $password)
 {
+    $user = getUser($connection, $username, null);
+    if (isset($user)) {
+        $password = md5($password);
+
+        if (strcmp($user['password'], $password) == 0) {
+            $session = generateRandomString(255);
+            updateSession($connection, $username, $session);
+            //LOGGED IN, PASS $session to front end, store $session in sessionStorage;
+        } else {
+            exit(errorMsg(400, "fail", "Invalid username/password"));
+        }
+    } else {
+        exit(errorMsg(400, "fail", "User does not exsist"));
+    }
+}
+
+function logout($connection, $username, $session)
+{
+    $user = getUser($connection, $username, null);
+    if (isset($user)) {
+        if (strcmp($user['session'], $session) == 0) {
+            updateSession($connection, $username, NULL);
+
+            // RETURN SUCCESS MESSAGE
+        } else {
+            exit(errorMsg(400, "fail", "Invalid user or session"));
+        }
+    } else {
+        exit(errorMsg(400, "fail", "User does not exsist"));
+    }
+}
+
+function updateSession($connection, $username, $session)
+{
+    $sql = "UPDATE users SET session = ? WHERE username = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("ss", $session, $username);
+    $stmt->execute();
+}
+
+function getUser($connection, $username, $email)
+{
+
     $sql = '';
     $stmt = null;
     if (isset($username) && isset($email)) {
@@ -124,9 +176,7 @@ function exsist($connection, $username, $email)
 
     $stmt->execute();
     $result = $stmt->get_result();
-    if ($result->num_rows > 0) {
-        return true;
-    } else {
-        return false;
-    }
+    $user = $result->fetch_assoc();
+
+    return ($user);
 }
