@@ -4,7 +4,6 @@ require_once 'helper.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
-    $sql = '';
     switch ($action) {
         case "login":
             if (isset($_POST['username']) && isset($_POST['password'])) {

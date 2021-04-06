@@ -2,6 +2,30 @@
 require 'database.php';
 require_once 'helper.php';
 require_once 'users.php';
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
+    
+    switch ($action) {
+        case "create":
+            break;
+
+        case "edit":
+            break;
+
+        case "remove":
+            break;
+
+        case "search":
+            break;
+        
+
+        default:
+            exit(errorMsg(400, "Invalid action"));
+    }
+} else {
+    $connection->close();
+    exit(errorMsg(400, "Missing action"));
+}
 
 function createPost($connection, $username, $session, $content)
 {
@@ -52,6 +76,17 @@ function removePost($connection, $post_id, $username, $session)
     } else {
         // smth else
     }
+}
+
+function getPostsBySearch($connection, $keyword)
+{
+    $sql = "SELECT * FROM posts WHERE content LIKE %?%;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("s", $keyword);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result;
 }
 
 function getPostById($connection, $post_id)
