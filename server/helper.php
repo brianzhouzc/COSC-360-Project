@@ -1,12 +1,14 @@
 <?php
 
-function errorMsg($code, $status, $message)
+function errorMsg($status, $detail)
 {
-    $response = array("code"=>$code, "status"=>$status, "message"=>$message);
+    $error = array("status" => $status, "detail" => $detail);
+    $response = array("errors" => $error);
     return (json_encode($response));
 }
 
-function generateRandomString($length = 6) {
+function generateRandomString($length = 6)
+{
     $characters = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     $charactersLength = strlen($characters);
     $randomString = '';
