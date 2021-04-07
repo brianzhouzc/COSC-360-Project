@@ -70,7 +70,7 @@ function login($connection, $username, $password)
             $session = generateRandomString(255);
             updateSession($connection, $username, $session);
             //LOGGED IN, PASS $session to front end, store $session in sessionStorage;
-            return dataResponse(200, "Successfully logged in", array("username" => $username, "session" => $session));
+            return dataResponse(200, "Successfully logged in", array("action" => "login", "username" => $username, "session" => $session));
         } else {
             return errorResponse(400, "Invalid username/password");
         }
@@ -87,7 +87,7 @@ function logout($connection, $username, $session)
             updateSession($connection, $username, NULL);
 
             // RETURN SUCCESS MESSAGE
-            return dataResponse(200, "Successfully logged out");
+            return dataResponse(200, "Successfully logged out", array("action" => "logout"));
         } else {
             return errorResponse(400, "Invalid user or session");
         }
@@ -114,7 +114,7 @@ function register($connection, $username, $email, $password, $avatar)
 
         $stmt->execute();
         // SUCCESS message
-        return dataResponse(200, "Successfully registered");
+        return dataResponse(200, "Successfully registered", array("action" => "register"));
     }
 }
 
@@ -134,7 +134,7 @@ function forgot($connection, $email, $token, $password)
                             $stmt2->bind_param("ss", $password, $email);
                             $stmt2->execute();
                             /**** SEND CONFIRM RESPONSE ****/
-                            return dataResponse(200, "Successfully updated password");
+                            return dataResponse(200, "Successfully updated password", array("action" => "forgot"));
                         } else {
                             // token expired. reset token and token_timestamp to null
                             $sql2 = "UPDATE users SET reset_token = NULL, reset_token_timestamp = NULL WHERE email = ?;";
