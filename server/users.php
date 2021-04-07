@@ -68,7 +68,7 @@ function login($connection, $username, $password)
             $session = generateRandomString(255);
             updateSession($connection, $username, $session);
             //LOGGED IN, PASS $session to front end, store $session in sessionStorage;
-            echo ('logged in: ' . $session);
+            echo (json_encode(array("session"=>$session)));
         } else {
             exit(errorMsg(400, "Invalid username/password"));
         }
