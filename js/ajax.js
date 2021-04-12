@@ -62,5 +62,33 @@ function forgot() {
 }
 
 function createPost() {
-    
+
+}
+
+function updatePost() {
+
+}
+
+function removePost() {
+
+}
+
+function getPostsBySearch() {
+
+}
+
+function getPostById() {
+
+}
+
+function getPostsByUsername() {
+
+}
+
+function getCommentById() {
+
+}
+
+function getCommentsByPostId() {
+
 }
