@@ -1,5 +1,6 @@
 <?php
 require_once 'database.php';
+require_once 'helper.php';
 
 function login($connection, $username, $password)
 {

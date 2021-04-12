@@ -11,7 +11,7 @@ CREATE TABLE `users` (
 );
 CREATE TABLE `posts` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(50) NOT NULL,
     `content` TEXT NOT NULL,
     `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `views` INT NOT NULL DEFAULT '0',
@@ -21,7 +21,7 @@ CREATE TABLE `posts` (
 CREATE TABLE `comments` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `post_id` INT NOT NULL,
-    `username` VARCHAR(255) NOT NULL,
+    `username` VARCHAR(50) NOT NULL,
     `content` TEXT NOT NULL,
     `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `views` INT NOT NULL DEFAULT '0',

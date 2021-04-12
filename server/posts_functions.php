@@ -1,4 +1,8 @@
 <?php
+require_once 'database.php';
+require_once 'helper.php';
+require_once 'users_functions.php';
+
 function createPost($connection, $username, $session, $content)
 {
     if (authenticateUser($connection, $username, $session)) {

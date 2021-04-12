@@ -1,5 +1,5 @@
 <?php
-require 'database.php';
+require_once 'database.php';
 require_once 'helper.php';
 require_once 'users_functions.php';
 
