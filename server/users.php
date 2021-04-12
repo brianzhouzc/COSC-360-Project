@@ -127,10 +127,11 @@ function forgot($connection, $email, $token, $password)
                 if (isset($user['reset_token']) && isset($user['reset_token_timestamp'])) {
                     if (strcmp($token, $user['reset_token']) == 0) {
                         //code sent less than an hour;
-                        if (time() - $user['reset_token_timestamp'] < 3600) {
+                        if ($user['reset_token_timestamp_diff'] < 3600) {
                             // Update password
                             $sql2 = "UPDATE users SET password = ? WHERE email = ?";
                             $stmt2 = $connection->prepare($sql2);
+                            $password = md5($password);
                             $stmt2->bind_param("ss", $password, $email);
                             $stmt2->execute();
                             /**** SEND CONFIRM RESPONSE ****/
@@ -154,10 +155,9 @@ function forgot($connection, $email, $token, $password)
             }
         } else {
             $token = generateRandomString();
-            $timestamp = time();
-            $sql = "UPDATE users SET token = ?, token_timestamp = ? WHERE email = ?;";
+            $sql = "UPDATE users SET reset_token = ?, reset_token_timestamp = CURRENT_TIMESTAMP WHERE email = ?;";
             $stmt = $connection->prepare($sql);
-            $stmt->bind_param("sis", $token, $timestamp, $email);
+            $stmt->bind_param("ss", $token, $email);
             $stmt->execute();
             // SEND RESET EMAIL SOMEHOW $token
             // SEND confirm message
@@ -180,14 +180,14 @@ function authenticateUser($connection, $username, $session)
 {
     $user = getUserByName($connection, $username);
     if (isset($user)) {
-        if (strcmp($user['session'], $session) == 0)
+        if (strcmp($user['session'], $session) == 0 && $user['enable'])
             return true;
     }
     return false;
 }
 function getUserByNameOrEmail($connection, $username, $email)
 {
-    $sql = "SELECT * FROM users WHERE username = ? OR email = ?;";
+    $sql = "SELECT *, TIMESTAMPDIFF(SECOND, reset_token_timestamp, CURRENT_TIMESTAMP) AS reset_token_timestamp_diff FROM users WHERE username = ? OR email = ?;";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("ss", $username, $email);
     $stmt->execute();
@@ -199,7 +199,7 @@ function getUserByNameOrEmail($connection, $username, $email)
 
 function getUserByName($connection, $username)
 {
-    $sql = "SELECT * FROM users WHERE username = ?;";
+    $sql = "SELECT *, TIMESTAMPDIFF(SECOND, reset_token_timestamp, CURRENT_TIMESTAMP) AS reset_token_timestamp_diff FROM users WHERE username = ?;";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("s", $username);
     $stmt->execute();
@@ -211,7 +211,7 @@ function getUserByName($connection, $username)
 
 function getUserByEmail($connection, $email)
 {
-    $sql = "SELECT * FROM users WHERE email = ?;";
+    $sql = "SELECT *, TIMESTAMPDIFF(SECOND, reset_token_timestamp, CURRENT_TIMESTAMP) AS reset_token_timestamp_diff FROM users WHERE email = ?;";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("s", $email);
     $stmt->execute();

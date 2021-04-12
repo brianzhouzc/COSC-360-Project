@@ -5,7 +5,7 @@ CREATE TABLE `users` (
     `avatar` BLOB,
     `session` VARCHAR(255),
     `reset_token` VARCHAR(6),
-    `reset_token_timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `reset_token_timestamp` DATETIME,
     `enable` BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY (`username`, `email`)
 );
@@ -29,3 +29,5 @@ CREATE TABLE `comments` (
     FOREIGN KEY (`post_id`) REFERENCES `posts`(`id`),
     FOREIGN KEY (`username`) REFERENCES `users`(`username`)
 );
+
+INSERT INTO users (username, email, password) VALUES ('test', 'test', 'test')
