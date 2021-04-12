@@ -29,5 +29,8 @@ CREATE TABLE `comments` (
     FOREIGN KEY (`post_id`) REFERENCES `posts`(`id`),
     FOREIGN KEY (`username`) REFERENCES `users`(`username`)
 );
-
+CREATE TABLE `admins` (
+    `username` VARCHAR(50) NOT NULL,
+    FOREIGN KEY (`username`) REFERENCES `users`(`username`)
+);
 INSERT INTO users (username, email, password) VALUES ('test', 'test', 'test')
