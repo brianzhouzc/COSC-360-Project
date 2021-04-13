@@ -81,7 +81,11 @@ if (isset($_POST['action'])) {
             }
             $posts = array();
             while ($row = $results->fetch_assoc()) {
-                array_push($posts, array("username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp']));
+                array_push($posts, array(
+                    "id" => $row['id'],
+                    "username" => $row['username'], "title" => $row['title'],
+                    "content" => $row['content'], "timestamp" => $row['timestamp']
+                ));
             }
             exit(dataResponse(200, "Success", array("posts" => $posts)));
             break;

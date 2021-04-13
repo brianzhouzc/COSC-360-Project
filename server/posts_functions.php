@@ -68,7 +68,7 @@ function getPostsBySearch($connection, $term)
 
 function getPostById($connection, $post_id)
 {
-    $sql = "SELECT * FROM posts WHERE id = ?;";
+    $sql = "SELECT * FROM posts WHERE id = ?;"; 
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("i", $post_id);
     $stmt->execute();
