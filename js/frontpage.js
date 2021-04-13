@@ -43,11 +43,5 @@ function getPosts(order = "DESC", limit = 5, offset = 0) {
 }
 
 $(document).ready(function () {
-    getPosts("DESC", 5, current_offset);
-});
-
-$(window).scroll(function () {
-    if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-        console.log("load more");
-    }
+    getPosts("DESC", 65535, current_offset);
 });
