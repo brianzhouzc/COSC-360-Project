@@ -11,8 +11,9 @@ function createPost($connection, $username, $session, $content)
         $stmt = $connection->prepare($sql);
         $stmt->bind_param("ss", $username, $content);
         $stmt->execute();
+        exit(dataResponse(200, "Success"));
     } else {
-        // smth else
+        exit(errorResponse(400, "Unauthorized user!"));
     }
 }
 
@@ -54,11 +55,11 @@ function removePost($connection, $post_id, $username, $session)
     }
 }
 
-function getPostsBySearch($connection, $keyword)
+function getPostsBySearch($connection, $term)
 {
-    $sql = "SELECT * FROM posts WHERE content LIKE %?%;";
+    $sql = "SELECT * FROM posts WHERE content LIKE %?% OR username LIKE %?%;";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("s", $keyword);
+    $stmt->bind_param("ss", $term, $term);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -116,4 +117,9 @@ function getPostsTrending($connection, $limit = 5, $offset = 0)
     $stmt->execute();
     $result = $stmt->get_result();
     return $result;
+}
+
+function getLatestPost($connection)
+{
+    return getPostsDESC($connection, 1);
 }

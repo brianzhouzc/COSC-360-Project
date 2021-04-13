@@ -30,13 +30,26 @@ function generateRandomString($length = 6)
     return $randomString;
 }
 
-function isset_notempty($var)
+function isset_notempty()
 {
-    return (isset($var) && !empty($var));
+    for ($i = 0; $i < func_num_args(); $i++) {
+        $var = func_get_arg($i);
+        if (!(isset($var) && !empty($var)))
+            return false;
+    }
+    return true;
 }
 
 function exitandclose($msg, $connection)
 {
     $connection->close();
     exit($msg);
+}
+
+function getValueFromKey($arr, $key)
+{
+    if (isset($arr[$key]))
+        return $arr[$key];
+    else
+        return null;
 }

@@ -5,6 +5,7 @@ require_once 'users_functions.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
+
     switch ($action) {
         case "login":
             if (isset_notempty($_POST['username']) && isset_notempty($_POST['password'])) {
