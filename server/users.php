@@ -8,7 +8,9 @@ if (isset($_POST['action'])) {
 
     switch ($action) {
         case "login":
-            if (isset_notempty($_POST['username']) && isset_notempty($_POST['password'])) {
+            $username = getValueFromKey($_POST, 'username');
+            $password = getValueFromKey($_POST, 'password');
+            if (isset_notempty($username, $password)) {
                 $username = $_POST['username'];
                 $password = $_POST['password'];
                 $response = login($connection, $username, $password);
@@ -19,7 +21,9 @@ if (isset($_POST['action'])) {
             break;
 
         case "logout":
-            if (isset_notempty($_POST['username']) && isset_notempty($_POST['session'])) {
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            if (isset_notempty($username, $session)) {
                 $username = $_POST['username'];
                 $session = $_POST['session'];
                 $response = logout($connection, $username, $session);
@@ -30,11 +34,13 @@ if (isset($_POST['action'])) {
             break;
 
         case "register":
-            if (isset_notempty($_POST['username']) && isset_notempty($_POST['email']) && isset_notempty($_POST['password'])) {
-                $username = $_POST['username'];
-                $email = $_POST['email'];
-                $password = md5($_POST['password']);
-                $avatar = isset($_FILES['avatar']) ? $_FILES['avatar'] : null;
+            $username = getValueFromKey($_POST, 'username');
+            $email = getValueFromKey($_POST, 'email');
+            $password = getValueFromKey($_POST, 'password');
+            $avatar = isset_notempty($_FILES['avatar']) ? $_FILES['avatar'] : null;
+
+            if (isset_notempty($username, $email, $password)) {
+                $password = md5($password);
                 $response = register($connection, $username, $email, $password, $avatar);
                 exitandclose($response, $connection);
             } else {
@@ -43,10 +49,10 @@ if (isset($_POST['action'])) {
             break;
 
         case "forgot":
-            if (isset_notempty($_POST['email'])) {
-                $email = $_POST['email'];
-                $token = $_POST['token'];
-                $password = $_POST['password'];
+            $email = getValueFromKey($_POST, 'email');
+            $token = getValueFromKey($_POST, 'token');
+            $password = getValueFromKey($_POST, 'password');
+            if (isset_notempty($email)) {
                 $response = forgot($connection, $email, $token, $password);
                 exitandclose($response, $connection);
             } else {
