@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>feddit</title>
+   <!-- Custom styles for this template -->
+   <link href="css/header.css" rel="stylesheet">
+   <link href="css/columns.css" rel="stylesheet">
+
+   <script type="text/javascript" src="server/validate.js">
+    
+    function checkPasswordMatch(e) {
+        var p1 = document.getElementById("password").value;
+        var p2 = document.getElementById("password-check").value;
+        if(p1 != p2) {
+        makeRed(document.getElementById("password"));
+        makeRed(document.getElementById("password-check"));
+        makeRed(document.getElementById("avatar"));
+        alert("passwords do not match.")
+        e.preventDefault();
+        }
+        else {
+        alert("checks validated");
+        }
+    }
+  </script>
+
+</head>
+
+<body>
+  <div class="banner">
+    <h1 class="header">Feddit</h1>
+  <img src="img/img_avatar.png" alt="Avatar" class="u_info">
+  
+  <hr>
+  </div>
+  <div class="navbar"><a href="reddit.html">Home</a>
+    <a href="login.html" class="active">User</a>
+    <a href="#">About Us</a> 
+    <a href="admin.html">Admin</a> 
+  </div><!--Close Nav bar div-->
+    
+      
+    <div class="row">
+      <div class="side">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <form class="search" action="">
+          <input type="text" placeholder="Search Posts" name="search">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+        <h2>Links to popular Discussion Categories:</h2><br>
+        <div class="butt"><a href="#">Category 1 - Pizza</a></div><br>
+        <div class="butt"><a href="#">Category 2 - Bikes</a></div><br>
+        <div class="butt"><a href="#">Category 3 - Coding</a></div>
+      </div>
+        <div class="main">
+            <h1>Please login <button onclick="document.location='user.html'">Or Register</button></h1>
+            <fieldset id="fieldset3" style="padding-left:50px;">
+                    <table id="userinfo" cellpadding="5%";>
+                    <tr>
+                        <form method="post" action="server/users.php" id="mainForm">
+                        <th>Enter Username: </th>
+                        <th><input type="text" name="username" class="required"></th>
+                    </tr>
+                    <tr>
+                        <th>Enter Password: </th>
+                        <th><input type="password" name="password" class="required"></th>
+                    </tr>
+                    <tr>
+                        <th><input type="submit" value="Login"></th>
+                    </form>
+                        <th><button onclick="document.location='forgotpass.html'">Forgot Password?</button></th>
+                    </tr>
+                    
+                </table>
+            </fieldset>
+        </div>
+    </div>
+      
+      </body>
+      </html>

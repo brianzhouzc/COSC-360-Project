@@ -1,0 +1,114 @@
+*{box-sizing: border-box;}
+/* Column container */
+.row {  
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+}
+
+/* Create two unequal columns nect to each other */
+/* left column */
+.side {
+  -ms-flex: 30%; /* IE10 */
+  flex: 30%;
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* Main column */
+.main {   
+  -ms-flex: 70%; /* IE10 */
+  flex: 70%;
+  background-color: white;
+  padding: 20px;
+}
+/*need this to get header to fill entire screen width and start from the top*/
+html, body {
+  margin: 0;
+}
+
+/*Div buttons*/
+.butt{
+  width: 100%;
+  padding: 1vw;
+  font-size: 1.5vw;
+  background-color: #aaa;
+  color: #f1f1f1;
+  text-decoration: none;
+}
+
+/* links inside of div buttons */
+#catbutton a {
+  font-size: 1.5vw;
+  text-decoration: none;
+  color: #f1f1f1;
+  background-color: #aaa;
+}
+#catbutton a:link {
+  font-size: 1.5vw;
+  
+  color: #f1f1f1;
+  background-color: #aaa;
+}
+#catbutton a:visited{
+  font-size: 1.5vw;
+  text-decoration: none;
+  color: #f1f1f1;
+  background-color: #aaa;
+}
+
+/* when screen less than 700px wide, make the navigation links stack on top of each other */
+@media screen and (max-width: 700px) {
+  .row {   
+    flex-direction: column;
+  }
+}
+
+/* when screen less than 400px wide, make the navigation links stack on top of each other */
+@media screen and (max-width: 400px) {
+  
+}
+
+table, th, td {
+    border: none;
+    text-align: left;
+    background-color: #f1f1f1;
+}
+fieldset {
+    background-color: #f1f1f1;
+}
+
+/* Style the search field */
+form.search input[type=text] {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+  
+/* Style the submit button */
+form.search button {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #4120d1;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none; /* Prevent double borders */
+    cursor: pointer;
+}
+  
+form.search button:hover {
+    background: #4d25ff;
+}
+  
+/* Clear floats */
+form.search::after {
+    content: "";
+    clear: both;
+    display: table;
+}
