@@ -17,22 +17,22 @@ function createPost($connection, $username, $session, $content)
     }
 }
 
-function updatePost($connection, $post_id, $username, $session, $content)
+function editPost($connection, $post_id, $username, $session, $content)
 {
     if (authenticateUser($connection, $username, $session)) {
         $post = getPostById($connection, $post_id);
         if (strcmp($post['username'], $username) == 0) {
             //$user = getUserByName($connection, $username);
-            $sql = "UPDATE posts SET content = ? WHERE post";
+            $sql = "UPDATE posts SET content = ? WHERE post_id = ?;";
             $stmt = $connection->prepare($sql);
-            $stmt->bind_param("ss", $username, $content);
+            $stmt->bind_param("ss", $post_id, $content);
             $stmt->execute();
-            // updated
+            exit(dataResponse(200, "Success"));
         } else {
-            // user does not own post
+            exit(errorResponse(400, "User does not own post"));
         }
     } else {
-        // smth else
+        exit(errorResponse(400, "Unauthorize user"));
     }
 }
 
@@ -46,12 +46,12 @@ function removePost($connection, $post_id, $username, $session)
             $stmt = $connection->prepare($sql);
             $stmt->bind_param("i", $post_id);
             $stmt->execute();
-            // deleted
+            exit(dataResponse(200, "Success"));
         } else {
-            // user does not own post
+            exit(errorResponse(400, "User does not own post"));
         }
     } else {
-        // smth else
+        exit(errorResponse(400, "Unauthorize user"));
     }
 }
 

@@ -20,9 +20,26 @@ if (isset($_POST['action'])) {
             break;
 
         case "edit":
+            $post_id = getValueFromKey($_POST, 'postid');
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            $content = getValueFromKey($_POST, 'content');
+            if (isset_notempty($post_id, $username, $session, $content)) {
+                editPost($connection, $post_id, $username, $session, $content);
+            } else {
+                exit(errorResponse(400, "Missing postid/username/session/content"));
+            }
             break;
 
         case "remove":
+            $post_id = getValueFromKey($_POST, 'postid');
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            if (isset_notempty($post_id, $username, $session)) {
+                removePost($connection, $post_id, $username, $session);
+            } else {
+                exit(errorResponse(400, "Missing postid/username/session"));
+            }
             break;
 
         case "search":
