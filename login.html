@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>feddit</title>
+   <!-- Custom styles for this template -->
+   <link href="css/header.css" rel="stylesheet">
+   <script type="text/javascript" src="server/validate.js">
+    function checkPasswordMatch(e) {
+        var p1 = document.getElementById("password").value;
+        var p2 = document.getElementById("password-check").value;
+        if(p1 != p2) {
+        makeRed(document.getElementById("password"));
+        makeRed(document.getElementById("password-check"));
+        makeRed(document.getElementById("avatar"));
+        alert("passwords do not match.")
+        e.preventDefault();
+        }
+        else {
+        alert("checks validated");
+        }
+  }</script>
+
+</head>
+
+<body>
+  <div class="banner">
+    <h1 class="header">Feddit</h1>
+  <img src="img/img_avatar.png" alt="Avatar" class="u_info">
+  
+  <hr>
+  </div>
+  <div class="navbar"><a href="reddit.html" class="active">Home</a>
+    <a href="login.html">User</a>
+    <a href="#">About Us</a> 
+    <a href="admin.html">Admin</a> 
+  </div><!--Close Nav bar div-->
+    
+      
+    <div class="row">
+        <div class="side">
+          <h2>Links to Discussions:</h2>
+          <h5>Photo of me:</h5>
+          <div class="fakeimg" style="height:200px;">Image</div>
+          <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+          <h3>More Text</h3>
+          <p>Lorem ipsum dolor sit ame.</p>
+          <div class="fakeimg" style="height:60px;">Image</div><br>
+          <div class="fakeimg" style="height:60px;">Image</div><br>
+          <div class="fakeimg" style="height:60px;">Image</div>
+          <h2>Links to Discussions:</h2>
+          <h5>Photo of me:</h5>
+          <div class="fakeimg" style="height:200px;">Image</div>
+          <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
+          <h3>More Text</h3>
+          <p>Lorem ipsum dolor sit ame.</p>
+          <div class="fakeimg" style="height:60px;">Image</div><br>
+          <div class="fakeimg" style="height:60px;">Image</div><br>
+          <div class="fakeimg" style="height:60px;">Image</div>
+        </div>
+        <div class="main">
+            <h1>Please login <button onclick="document.location='user.html'">Or Register</button></h1>
+            <fieldset id="fieldset3" style="padding-left:50px;">
+                    <table id="userinfo" cellpadding="5%";>
+                    <tr>
+                        <form method="post" action="server/users.php" id="mainForm">
+                        <th>Enter Username: </th>
+                        <th><input type="text" name="username" class="required"></th>
+                    </tr>
+                    <tr>
+                        <th>Enter Password: </th>
+                        <th><input type="password" name="password" class="required"></th>
+                    </tr>
+                    <tr>
+                        <th><input type="submit" value="Login"></th>
+                    </form>
+                        <th><button onclick="document.location='forgotpass.html'">Forgot Password?</button></th>
+                    </tr>
+                    
+                </table>
+            </fieldset>
+        </div>
+    </div>
+      
+      </body>
+      </html>
