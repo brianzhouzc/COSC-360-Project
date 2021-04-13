@@ -1,9 +1,8 @@
-func
 function login(username, password) {
     var data = {
-        action = "login",
-        username = username,
-        password = password
+        action: "login",
+        username: username,
+        password: password
     };
 
     $.ajax({
@@ -27,9 +26,9 @@ function login(username, password) {
 function logout() {
     if ("username" in sessionStorage && "session" in sessionStorage) {
         var data = {
-            action = "lougout",
-            username = sessionStorage.getItem("username"),
-            session = sessionStorage.getItem("session")
+            action: "logout",
+            username: sessionStorage.getItem("username"),
+            session: sessionStorage.getItem("session")
         };
 
         $.ajax({
@@ -61,8 +60,32 @@ function forgot() {
 
 }
 
-function createPost() {
+function createPost(content) {
+    if ("username" in sessionStorage && "session" in sessionStorage) {
+        var data = {
+            action: "create",
+            username: sessionStorage.getItem("username"),
+            session: sessionStorage.getItem("session"),
+            content: content
+        };
 
+        $.ajax({
+            type: "POST",
+            url: "/server/posts.php",
+            data: data,
+            dataType: "json",
+            encode: true
+        }).done(function (response) {
+            if (response.hasOwnProperty('data')) {
+                //display success message
+                alert(response.data.detail);
+            } else if (response.hasOwnProperty('errors')) {
+                alert(response.errors.detail);
+            }
+        });
+    } else {
+
+    }
 }
 
 function updatePost() {

@@ -3,13 +3,13 @@ require_once 'database.php';
 require_once 'helper.php';
 require_once 'users_functions.php';
 
-function createPost($connection, $username, $session, $content)
+function createPost($connection, $username, $session, $title, $content)
 {
     if (authenticateUser($connection, $username, $session)) {
         //$user = getUserByName($connection, $username);
-        $sql = "INSERT INTO posts (username, content) VALUES (?, ?);";
+        $sql = "INSERT INTO posts (username, title, content) VALUES (?, ?, ?);";
         $stmt = $connection->prepare($sql);
-        $stmt->bind_param("ss", $username, $content);
+        $stmt->bind_param("sss", $username, $title, $content);
         $stmt->execute();
         exit(dataResponse(200, "Success"));
     } else {
@@ -17,15 +17,15 @@ function createPost($connection, $username, $session, $content)
     }
 }
 
-function editPost($connection, $post_id, $username, $session, $content)
+function editPost($connection, $post_id, $username, $session, $title, $content)
 {
     if (authenticateUser($connection, $username, $session)) {
         $post = getPostById($connection, $post_id);
         if (strcmp($post['username'], $username) == 0) {
             //$user = getUserByName($connection, $username);
-            $sql = "UPDATE posts SET content = ? WHERE post_id = ?;";
+            $sql = "UPDATE posts SET title =?, content = ? WHERE post_id = ?;";
             $stmt = $connection->prepare($sql);
-            $stmt->bind_param("ss", $post_id, $content);
+            $stmt->bind_param("sss", $post_id, $title, $content);
             $stmt->execute();
             exit(dataResponse(200, "Success"));
         } else {

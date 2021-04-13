@@ -11,11 +11,12 @@ if (isset($_POST['action'])) {
         case "create":
             $username = getValueFromKey($_POST, 'username');
             $session = getValueFromKey($_POST, 'session');
+            $title = getValueFromKey($_POST, 'title');
             $content = getValueFromKey($_POST, 'content');
-            if (isset_notempty($username, $session, $content)) {
-                createPost($connection, $username, $session, $content);
+            if (isset_notempty($username, $session, $title, $content)) {
+                createPost($connection, $username, $session, $title, $content);
             } else {
-                exit(errorResponse(400, "Missing username/session/content"));
+                exit(errorResponse(400, "Missing username/session/title/content"));
             }
             break;
 
@@ -23,11 +24,12 @@ if (isset($_POST['action'])) {
             $post_id = getValueFromKey($_POST, 'postid');
             $username = getValueFromKey($_POST, 'username');
             $session = getValueFromKey($_POST, 'session');
+            $title = getValueFromKey($_POST, 'title');
             $content = getValueFromKey($_POST, 'content');
-            if (isset_notempty($post_id, $username, $session, $content)) {
-                editPost($connection, $post_id, $username, $session, $content);
+            if (isset_notempty($post_id, $username, $session, $title, $content)) {
+                editPost($connection, $post_id, $username, $session, $title, $content);
             } else {
-                exit(errorResponse(400, "Missing postid/username/session/content"));
+                exit(errorResponse(400, "Missing postid/username/session/title/content"));
             }
             break;
 
