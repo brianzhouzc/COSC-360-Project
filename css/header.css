@@ -9,117 +9,89 @@
     display: inline-block;
     padding-right: 5vw;
     padding-left: 0.8vw;
+    padding-bottom: 0;
     font-size: 3vw;
     
-  }
-  /* heading h1 (Title) font size*/
-  .header h1 {
-    font-size: 3vw;
-    padding-left: 1vw;
-    padding-right: 78.4vw;
-  }
+}
+/* heading h1 (Title) font size*/
+.header h1 {
+  font-size: 3vw;
+  padding-left: 1vw;
+  padding-right: 78.4vw;
+}
 
-  .hr {
-    color: white;
-    display: block;
-    border-style: solid;
-    border-width: 0.25vw;
-    margin-left: 2vw; 
-    margin-right: 30vw;
-  }
+hr {
+  color: white;
+  display: block;
+  border-style: solid;
+  border-width: 0.25vw;
+  margin-left: 0.5%; 
+  margin-right: 0.5%;
+}
 
-.u_info {
-    
-    color: red;
-  }
+figure{ /*need figure to hold image and caption*/
+  position: absolute;
+  top: -0.5vw;
+  left: 75vw;
+}
+
+figcaption {/*need to put user info beside avatar*/
+  position: absolute; /*sets relative to image*/
+  top: 2vw;
+  left: 6vw;
+  color: white;
+  font-size: 1vw;
+}
+
+.u_info { /* sets user avatar to a certain size */
+  width: 6.5vw;
+  height: 6.5vw;
+}
+
 img {
-    
-    float: right;
-    border-radius: 50%; /*need to make image circular*/
-    margin-right: 1%;
-    margin-top: 1%;
-  }
+  float: right;
+  border-radius: 50%; /*need to make image circular*/
+  margin-right: 1%;
+  margin-top: 1%;
+  padding: 1vw;
+}
 
 .navbar {
-    background: #4120d1;
-    color: white;
-    width:99.1vw; 
-    overflow: hidden;
-    /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. 
-    It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). */ 
-    position: -webkit-sticky;
-    position: sticky;
-    top: 0;
-  }
+  background: #4120d1;
+  color: white;
+  width: 100%; 
+  overflow: hidden;
+  /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. 
+  It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). */ 
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
   
-  /* Style the navigation bar links */
-  .navbar a {
-    font-size: 1.5vw;
-    float: left;
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 1vw 2vw;
-    text-decoration: none;
-  }
+/* Style the navigation bar links */
+.navbar a {
+  font-size: 1.5vw;
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 1vw 2vw;
+  text-decoration: none;
+}
   
-  /* Change color on hover */
-  .navbar a:hover {
-    background-color: #4d25ff;
-    color: rgb(255, 255, 255);
-  }
+/* Change color on hover */
+.navbar a:hover {
+  background-color: #4d25ff;
+  color: rgb(255, 255, 255);
+}
   
-  /* Active link */
-  .navbar a.active {
-    background-color: #341f8d;
-    color: white;
+/* Active link */
+.navbar a.active {
+  background-color: #341f8d;
+  color: white;
   }
 
-*{box-sizing: border-box;}
-/* Column container */
-.row {  
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
-}
-
-/* Create two unequal columns nect to each other */
-/* left column */
-.side {
-  -ms-flex: 30%; /* IE10 */
-  flex: 30%;
-  background-color: #f1f1f1;
-  padding: 20px;
-}
-
-/* Main column */
-.main {   
-  -ms-flex: 70%; /* IE10 */
-  flex: 70%;
-  background-color: white;
-  padding: 20px;
-}
 /*need this to get header to fill entire screen width and start from the top*/
 html, body {
   margin: 0;
-}
-
-/* Fake image, just for this example */
-.fakeimg {
-  background-color: #aaa;
-  width: 100%;
-  padding: 20px;
-}
-
-/* when screen less than 700px wide, make the navigation links stack on top of each other */
-@media screen and (max-width: 700px) {
-  .row {   
-    flex-direction: column;
-  }
-}
-
-/* when screen less than 400px wide, make the navigation links stack on top of each other */
-@media screen and (max-width: 400px) {
-  
 }
