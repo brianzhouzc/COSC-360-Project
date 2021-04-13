@@ -1,114 +1,99 @@
 <?php
-require 'database.php';
+require_once 'database.php';
 require_once 'helper.php';
-require_once 'users.php';
+require_once 'users_functions.php';
+require_once 'posts_functions.php';
 
 if (isset($_POST['action'])) {
     $action = $_POST['action'];
 
     switch ($action) {
         case "create":
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            $title = getValueFromKey($_POST, 'title');
+            $content = getValueFromKey($_POST, 'content');
+            if (isset_notempty($username, $session, $title, $content)) {
+                createPost($connection, $username, $session, $title, $content);
+            } else {
+                exit(errorResponse(400, "Missing username/session/title/content"));
+            }
             break;
 
         case "edit":
+            $post_id = getValueFromKey($_POST, 'postid');
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            $title = getValueFromKey($_POST, 'title');
+            $content = getValueFromKey($_POST, 'content');
+            if (isset_notempty($post_id, $username, $session, $title, $content)) {
+                editPost($connection, $post_id, $username, $session, $title, $content);
+            } else {
+                exit(errorResponse(400, "Missing postid/username/session/title/content"));
+            }
             break;
 
         case "remove":
+            $post_id = getValueFromKey($_POST, 'postid');
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            if (isset_notempty($post_id, $username, $session)) {
+                removePost($connection, $post_id, $username, $session);
+            } else {
+                exit(errorResponse(400, "Missing postid/username/session"));
+            }
             break;
 
         case "search":
+            $term = getValueFromKey($_POST, 'term');
+            if (isset_notempty($term)) {
+                $result = getPostsBySearch($connection, $term);
+                $posts = array();
+                while ($row = $results->fetch_assoc()) {
+                    array_push($posts, array("username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp']));
+                }
+                exit(dataResponse(200, "Success", array("posts" => $posts)));
+            } else {
+                exit(errorResponse(400, "Missing search terms"));
+            }
             break;
-        
+
+        case "get":
+            $order = getValueFromKey($_POST, 'order');
+            $limit = getValueFromKey($_POST, 'limit');
+            $offset = getValueFromKey($_POST, 'offset');
+            $results = '';
+
+            if (!isset_notempty($limit))
+                $limit = 5;
+            if (!isset_notempty($offset))
+                $offset = 0;
+            switch ($offset) {
+                case "DESC":
+                    $results = getPostsDESC($connection, $limit, $offset);
+                    break;
+                case "ASC":
+                    $results = getPostsASC($connection, $limit, $offset);
+                    break;
+                default:
+                    $results = getPostsDESC($connection, $limit, $offset);
+                    break;
+            }
+            $posts = array();
+            while ($row = $results->fetch_assoc()) {
+                array_push($posts, array(
+                    "id" => $row['id'],
+                    "username" => $row['username'], "title" => $row['title'],
+                    "content" => $row['content'], "timestamp" => $row['timestamp']
+                ));
+            }
+            exit(dataResponse(200, "Success", array("posts" => $posts)));
+            break;
 
         default:
-            exit(errorMsg(400, "Invalid action"));
+            exit(errorResponse(400, "Invalid action"));
     }
 } else {
     $connection->close();
-    exit(errorMsg(400, "Missing action"));
-}
-
-function createPost($connection, $username, $session, $content)
-{
-    if (authenticateUser($connection, $username, $session)) {
-        //$user = getUserByName($connection, $username);
-        $sql = "INSERT INTO posts (username, content) VALUES (?, ?);";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("ss", $username, $content);
-        $stmt->execute();
-    } else {
-        // smth else
-    }
-}
-
-function updatePost($connection, $post_id, $username, $session, $content)
-{
-    if (authenticateUser($connection, $username, $session)) {
-        $post = getPostById($connection, $post_id);
-        if (strcmp($post['username'], $username) == 0) {
-            //$user = getUserByName($connection, $username);
-            $sql = "UPDATE posts SET content = ? WHERE post";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param("ss", $username, $content);
-            $stmt->execute();
-            // updated
-        } else {
-            // user does not own post
-        }
-    } else {
-        // smth else
-    }
-}
-
-function removePost($connection, $post_id, $username, $session)
-{
-    if (authenticateUser($connection, $username, $session)) {
-        $post = getPostById($connection, $post_id);
-        if (strcmp($post['username'], $username) == 0) {
-            //$user = getUserByName($connection, $username);
-            $sql = "DELETE FROM posts WHERE id = ?;";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param("i", $post_id);
-            $stmt->execute();
-            // deleted
-        } else {
-            // user does not own post
-        }
-    } else {
-        // smth else
-    }
-}
-
-function getPostsBySearch($connection, $keyword)
-{
-    $sql = "SELECT * FROM posts WHERE content LIKE %?%;";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param("s", $keyword);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    return $result;
-}
-
-function getPostById($connection, $post_id)
-{
-    $sql = "SELECT * FROM posts WHERE id = ?;";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $post_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $post = $result->fetch_assoc();
-
-    return $post;
-}
-
-function getPostsByUsername($connection, $username)
-{
-    $sql = "SELECT * FROM posts WHERE username = ?;";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $username);
-    $stmt->execute();
-    $result = $stmt->get_result();
-
-    return $result;
+    exit(errorResponse(400, "Missing action"));
 }

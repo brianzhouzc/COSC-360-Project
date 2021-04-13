@@ -5,31 +5,39 @@ CREATE TABLE `users` (
     `avatar` BLOB,
     `session` VARCHAR(255),
     `reset_token` VARCHAR(6),
-    `reset_token_timestamp` INT,
-    `enable` BOOLEAN,
+    `reset_token_timestamp` DATETIME,
+    `enable` BOOLEAN NOT NULL DEFAULT TRUE,
     PRIMARY KEY (`username`, `email`)
-) 
+);
 CREATE TABLE `posts` (
     `id` INT NOT NULL AUTO_INCREMENT,
-    `username` VARCHAR(255) NOT NULL,
-    `content` VARCHAR NOT NULL,
-    `timestamp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `views` NOT NULL DEFAULT '0',
-    PRIMARY KEY (`username`, `email`)
-) 
+    `username` VARCHAR(50) NOT NULL,
+    `title` VARCHAR(255) NOT NULL,
+    `content` TEXT NOT NULL,
+    `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `views` INT NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`username`) REFERENCES `users`(`username`)
+);
 CREATE TABLE `comments` (
     `id` INT NOT NULL AUTO_INCREMENT,
     `post_id` INT NOT NULL,
-    `username` VARCHAR(255) NOT NULL,
-    `content` VARCHAR NOT NULL,
-    `timestamp` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    `views` NOT NULL DEFAULT '0',
-    PRIMARY KEY (`username`, `email`)
-)
+    `username` VARCHAR(50) NOT NULL,
+    `content` TEXT NOT NULL,
+    `timestamp` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    `views` INT NOT NULL DEFAULT '0',
+    PRIMARY KEY (`id`),
+    FOREIGN KEY (`post_id`) REFERENCES `posts`(`id`),
+    FOREIGN KEY (`username`) REFERENCES `users`(`username`)
+);
+CREATE TABLE `admins` (
+    `username` VARCHAR(50) NOT NULL,
+    FOREIGN KEY (`username`) REFERENCES `users`(`username`)
+);
 
 /*We need to hardcode a few users for testing purposes--they could be admins later as well*/
-INSERT INTO users ('username','email','password','enable') VALUES ("parker616", "peter@dailybugle.com", "notspidey", 'true');
-INSERT INTO users ('username','email','password','enable') VALUES ("dvader", "clanker@sithlord.com", "snips", 'true');
+INSERT INTO users ('username','email','password','enable') VALUES ("parker616", "peter@dailybugle.com", "notspidey", 1);
+INSERT INTO users ('username','email','password','enable') VALUES ("dvader", "clanker@sithlord.com", "snips", 1);
 /*We need to hardcode posts in now that we have users to write them*/
 INSERT INTO posts ('id','username','content','timestamp','views') VALUES (0, "parker616", "This post is about my favourite place to get pizza, Joe's Pizza!", 2021-01-03, 0) WHERE 'username' = 'parker616';
 INSERT INTO posts ('id','username','content','timestamp','views') VALUES (1, "parker616", "There's nothing better than New York pizza!", 2020-02-14, 0) WHERE 'username' = 'parker616';
