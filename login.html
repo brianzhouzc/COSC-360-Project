@@ -9,6 +9,7 @@
    <link href="css/columns.css" rel="stylesheet">
 
    <script type="text/javascript" src="server/validate.js">
+    
     function checkPasswordMatch(e) {
         var p1 = document.getElementById("password").value;
         var p2 = document.getElementById("password-check").value;
@@ -22,7 +23,8 @@
         else {
         alert("checks validated");
         }
-  }</script>
+    }
+  </script>
 
 </head>
 
@@ -34,9 +36,10 @@
   <hr>
   </div>
   <div class="navbar"><a href="reddit.html">Home</a>
-    <a href="user.html" class="active">User</a>
+    <a href="login.html" class="active">User</a>
     <a href="#">About Us</a> 
-  </div> <!--Close Nav bar div-->
+    <a href="admin.html">Admin</a> 
+  </div><!--Close Nav bar div-->
     
       
     <div class="row">
@@ -61,40 +64,28 @@
           <div class="fakeimg" style="height:60px;">Image</div>
         </div>
         <div class="main">
+            <h1>Please login <button onclick="document.location='user.html'">Or Register</button></h1>
             <fieldset id="fieldset3" style="padding-left:50px;">
-                <legend>Create A User</legend>
-                    <table id="userinfo" cellpadding="5%">
+                    <table id="userinfo" cellpadding="5%";>
                     <tr>
                         <form method="post" action="server/users.php" id="mainForm">
                         <th>Enter Username: </th>
                         <th><input type="text" name="username" class="required"></th>
                     </tr>
                     <tr>
-                        <th>User Email: </th>
-                        <th><input type="email" name="email" class="required"></th>
-                    </tr>
-                    <tr>
-                        <th>User Password: </th>
+                        <th>Enter Password: </th>
                         <th><input type="password" name="password" class="required"></th>
                     </tr>
                     <tr>
-                        <th>Re-enter Password: </th>
-                        <th><input type="password" name="password-check" class="required"></th>
-                    </tr>
-                    <tr>
-                        <th>User Image Upload: </th>
-                        <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)" class="required"></th>
-                        <td>Preferred image size is 100*100 pixels</td>
-                    </tr>
-                    <tr>
-                        <th><input type="submit" value="Submit"></th>
+                        <th><input type="submit" value="Login"></th>
+                    </form>
+                        <th><button onclick="document.location='forgotpass.html'">Forgot Password?</button></th>
                     </tr>
                     
                 </table>
-                </fieldset>
+            </fieldset>
         </div>
     </div>
       
       </body>
       </html>
-      
