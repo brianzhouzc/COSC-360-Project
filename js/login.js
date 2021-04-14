@@ -1,43 +1,25 @@
-function isBlank(inputField) {
-    if (inputField.value == "") {
-        return true;
-    }
-    return false;
-}
+var mainForm = document.getElementById("mainForm");
+mainForm.onsubmit = function (e) {
+    e.preventDefault();
+    console.log($('#username').val(), $('#password').val());
+    var requiredInputs = document.querySelectorAll(".required");
+    var err = false;
 
-function makeRed(inputDiv) {
-    inputDiv.style.borderColor = "#AA0000";
-}
-
-function makeClean(inputDiv) {
-    inputDiv.style.borderColor = "#FFFFFF";
-}
-
-window.onload = function () {
-    var mainForm = document.getElementById("mainForm");
-
-    mainForm.onsubmit = function (e) {
-        e.preventDefault();
-        console.log($('#username').val(), $('#password').val());
-        var requiredInputs = document.querySelectorAll(".required");
-        var err = false;
-
-        for (var i = 0; i < requiredInputs.length; i++) {
-            if (isBlank(requiredInputs[i])) {
-                err = true;
-                makeRed(requiredInputs[i]);
-            }
-            else {
-                makeClean(requiredInputs[i]);
-            }
-        }
-        if (!err) {
-            console.log($('#username').val(), $('#password').val());
-            login($('#username').val(), $('#password').val());
+    for (var i = 0; i < requiredInputs.length; i++) {
+        if (isBlank(requiredInputs[i])) {
+            err = true;
+            makeRed(requiredInputs[i]);
         }
         else {
-            $("#message").text("Missing username/password");
+            makeClean(requiredInputs[i]);
         }
+    }
+    if (!err) {
+        console.log($('#username').val(), $('#password').val());
+        login($('#username').val(), $('#password').val());
+    }
+    else {
+        $("#message").text("Missing username/password");
     }
 }
 
@@ -60,7 +42,7 @@ function login(username, password) {
             //display logged in message
             sessionStorage.setItem("username", response.data.username)
             sessionStorage.setItem("session", response.data.session);
-            $("#message").text("Successfully logged in! Redirecting to home page...");
+            $("#login_message").text("Successfully logged in! Redirecting to home page...");
             document.querySelectorAll(".required").forEach(function (element) {
                 makeClean(element);
             });
@@ -76,6 +58,17 @@ function login(username, password) {
     });
 }
 
-function loadRegister(){
-    $("#mainbody").load("register.html");
+function isBlank(inputField) {
+    if (inputField.value == "") {
+        return true;
+    }
+    return false;
+}
+
+function makeRed(inputDiv) {
+    inputDiv.style.borderColor = "#AA0000";
+}
+
+function makeClean(inputDiv) {
+    inputDiv.style.borderColor = "#FFFFFF";
 }
