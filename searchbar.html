@@ -16,14 +16,17 @@
       <input type="text" placeholder="Search Posts" name="search">
       <button type="submit"><i class="fa fa-search"></i></button>
     </form>
-    <h2>Links to popular posts:</h2><br>
-    <ul>
-      <li>
-        <div class="post_title"><a href="#"></a></div><br>
-      </li>
+    <h2>Links to popular posts:</h2>
+    <ul id="popular_posts">
+      <div id="popular_template" style="display: none;">
+        <li class="popular_title">
+          <a class="popular_title_link" href="#">Template</a>
+        </li>
+      </div>
       <!--put in post titles as links and order by most viewed-->
     </ul>
   </div>
+  <script type="text/javascript" src="./js/sidebar.js"></script>
 </body>
 
 </html>

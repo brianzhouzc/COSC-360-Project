@@ -50,7 +50,7 @@ if (isset($_POST['action'])) {
                 $result = getPostsBySearch($connection, $term);
                 $posts = array();
                 while ($row = $results->fetch_assoc()) {
-                    array_push($posts, array("username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp']));
+                    array_push($posts, array("username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']));
                 }
                 exit(dataResponse(200, "Success", array("posts" => $posts)));
             } else {
@@ -84,11 +84,29 @@ if (isset($_POST['action'])) {
                 array_push($posts, array(
                     "id" => $row['id'],
                     "username" => $row['username'], "title" => $row['title'],
-                    "content" => $row['content'], "timestamp" => $row['timestamp']
+                    "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']
                 ));
             }
             exit(dataResponse(200, "Success", array("posts" => $posts)));
             break;
+        case "popular":
+            $limit = getValueFromKey($_POST, 'limit');
+            $offset = getValueFromKey($_POST, 'offset');
+
+            if (!isset_notempty($limit))
+                $limit = 5;
+            if (!isset_notempty($offset))
+                $offset = 0;
+            $results = getPostsTrending($connection, $limit);
+            $posts = array();
+            while ($row = $results->fetch_assoc()) {
+                array_push($posts, array(
+                    "id" => $row['id'],
+                    "username" => $row['username'], "title" => $row['title'],
+                    "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']
+                ));
+            }
+            exit(dataResponse(200, "Success", array("posts" => $posts)));
 
         default:
             exit(errorResponse(400, "Invalid action"));
