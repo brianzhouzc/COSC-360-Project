@@ -1,32 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<!--This is the searchbar and links to popular discussions that you see on left-hand side of every screen-->
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>searchbar</title>
-  <link href="css/header.css" rel="stylesheet">
-  <link href="css/columns.css" rel="stylesheet">
-</head>
-
-<body>
-  <div class="side">
-    <form class="search" action="">
-      <input type="text" placeholder="Search Posts" name="search">
-      <button type="submit"><i class="fa fa-search"></i></button>
-    </form>
-    <h2>Links to popular posts:</h2>
-    <ul id="popular_posts">
-      <div id="popular_template" style="display: none;">
-        <li class="popular_title">
-          <a class="popular_title_link" href="#">Template</a>
-        </li>
-      </div>
-      <!--put in post titles as links and order by most viewed-->
-    </ul>
-  </div>
-  <script type="text/javascript" src="./js/sidebar.js"></script>
+<div class="side">
+  <form class="search" action="">
+    <input type="text" placeholder="Search Posts" name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form>
+  <h2>Links to popular posts:</h2>
+  <ul id="popular_posts">
+    <div id="popular_template" style="display: none;">
+      <li class="popular_title">
+        <a class="popular_title_link" href="#">Template</a>
+      </li>
+    </div>
+    <!--put in post titles as links and order by most viewed-->
+  </ul>
+</div>
+<script type="text/javascript" src="./js/sidebar.js"></script>
 </body>
-
-</html>
