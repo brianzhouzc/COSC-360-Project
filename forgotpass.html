@@ -1,59 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>feddit</title>
-   <!-- Custom styles for this template -->
-   <link href="css/header.css" rel="stylesheet">
-   <link href="css/columns.css" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>forgotpass</title>
+  <!-- Custom styles for this template -->
+  <link href="css/header.css" rel="stylesheet">
+  <link href="css/columns.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-   <script type="text/javascript" src="server/validate.js">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+  <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
+    $(function(){
+      $("#banner").load( "header.html", function() {document.getElementById("1").classList.add("active");});//this makes the active link darker + brings in the header
+      $("#footer").load("footer.html");//brings in the footer
+      $("#sb").load("searchbar.html");//brings in the search bar and links
+    });
+  </script> 
+
+  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="./js/frontpage.js"></script>
+
+  <script type="text/javascript" src="server/validate.js">
     
     function checkPasswordMatch(e) {
-        var p1 = document.getElementById("password").value;
-        var p2 = document.getElementById("password-check").value;
-        if(p1 != p2) {
-        makeRed(document.getElementById("password"));
-        makeRed(document.getElementById("password-check"));
-        makeRed(document.getElementById("avatar"));
-        alert("passwords do not match.")
-        e.preventDefault();
-        }
-        else {
-        alert("checks validated");
-        }
+      var p1 = document.getElementById("password").value;
+      var p2 = document.getElementById("password-check").value;
+      if(p1 != p2) {
+      makeRed(document.getElementById("password"));
+      makeRed(document.getElementById("password-check"));
+      makeRed(document.getElementById("avatar"));
+      alert("passwords do not match.")
+      e.preventDefault();
+      }
+      else {
+      alert("checks validated");
+      }
     }
   </script>
 
 </head>
 
 <body>
-  <div class="banner">
-    <h1 class="header">Feddit</h1>
-  <img src="img/img_avatar.png" alt="Avatar" class="u_info">
-  
-  <hr>
-  </div>
-  <div class="navbar"><a href="reddit.html">Home</a>
-    <a href="login.html" class="active">User</a>
-    <a href="#">About Us</a> 
-    <a href="admin.html">Admin</a> 
-  </div> <!--Close Nav bar div-->
+  <div id="banner"></div><!--brings in header complete with links from html file-->
+
+  <div class="row">
     
-      
-    <div class="row">
-      <div class="side">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <form class="search" action="">
-          <input type="text" placeholder="Search Posts" name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-        <h2>Links to popular Discussion Categories:</h2><br>
-        <div class="butt"><a href="#">Category 1 - Pizza</a></div><br>
-        <div class="butt"><a href="#">Category 2 - Bikes</a></div><br>
-        <div class="butt"><a href="#">Category 3 - Coding</a></div>
-      </div>
+    <div id="sb"></div><!--brings in side bar from html file-->
         <div class="main">
             <fieldset id="fieldset3" style="padding-left:50px;">
                 <legend>Forgot Password</legend>
@@ -70,7 +63,8 @@
                 </fieldset>
         </div>
     </div>
-      
-      </body>
-      </html>
+
+    <div id="footer"></div><!--brings in footer from html file-->
+</body>
+</html>
       

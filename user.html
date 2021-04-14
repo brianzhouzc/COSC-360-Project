@@ -8,46 +8,29 @@
   <!-- Custom styles for this template -->
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="js/register.js"></script>
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+  <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
+    $(function(){
+      $("#banner").load( "header.html", function() {document.getElementById("2").classList.add("active");});//this makes the active link darker + brings in the header
+      $("#footer").load("footer.html");//brings in the footer
+      $("#sb").load("searchbar.html");//brings in the search bar and links
+    });
+  </script> 
+  
+  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="./js/frontpage.js"></script>
+  
 </head>
 
 <body>
-  <div class="banner">
-    <h1 class="header">Feddit</h1>
-    <img src="img/img_avatar.png" alt="Avatar" class="u_info">
-
-    <hr>
-  </div>
-  <div class="navbar"><a href="reddit.html">Home</a>
-    <a href="user.html" class="active">User</a>
-    <a href="#">About Us</a>
-  </div>
-  <!--Close Nav bar div-->
-
+  <div id="banner"></div><!--brings in header complete with links from html file-->
 
   <div class="row">
-    <div class="side">
-      <h2>Links to Discussions:</h2>
-      <h5>Photo of me:</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3>More Text</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
-      <div class="fakeimg" style="height:60px;">Image</div><br>
-      <div class="fakeimg" style="height:60px;">Image</div><br>
-      <div class="fakeimg" style="height:60px;">Image</div>
-      <h2>Links to Discussions:</h2>
-      <h5>Photo of me:</h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-      <h3>More Text</h3>
-      <p>Lorem ipsum dolor sit ame.</p>
-      <div class="fakeimg" style="height:60px;">Image</div><br>
-      <div class="fakeimg" style="height:60px;">Image</div><br>
-      <div class="fakeimg" style="height:60px;">Image</div>
-    </div>
+
+    <div id="sb"></div><!--brings in side bar from html file-->
+
     <div class="main">
       <fieldset id="fieldset3" style="padding-left:50px;">
         <legend>Create A User</legend>
@@ -72,8 +55,7 @@
             </tr>
             <tr>
               <th>User Image Upload: </th>
-              <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)"
-                  class="required"></th>
+              <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)" class="required"></th>
               <td>Preferred image size is 100*100 pixels</td>
             </tr>
             <tr>
@@ -85,6 +67,7 @@
     </div>
   </div>
 
+  <div id="footer"></div><!--brings in footer from html file-->
 </body>
 
 </html>

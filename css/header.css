@@ -95,3 +95,19 @@ img {
 html, body {
   margin: 0;
 }
+
+/* footer*/
+.foot {
+  background-size:100% 100%;
+  background-color: #17075e;
+  overflow: hidden;
+  color: white;
+  padding:1vw;
+}
+/* footer h1 (Title)*/
+.foottitle h1 {
+  font-size: 1vw;
+  background-color: #17075e;
+  color: white;
+  padding:1vw;
+}

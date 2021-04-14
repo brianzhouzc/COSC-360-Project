@@ -8,36 +8,28 @@
   <!-- Custom styles for this template -->
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  <script> 
+  
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+  <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
     $(function(){
-      $("#footer").load("footer.html"); 
-      $("#banner").load( "header.html", function() {
-        document.getElementById("1").classList.add("active");
+      $("#banner").load( "header.html", function() {document.getElementById("4").classList.add("active");});//this makes the active link darker + brings in the header
+      $("#footer").load("footer.html");//brings in the footer
+      $("#sb").load("searchbar.html");//brings in the search bar and links
     });
-    });
-    </script> 
-
+  </script> 
+  
   <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="./js/frontpage.js"></script>
-
+  
 </head>
 
 <body>
-  <div class="banner" id="banner"></div>
-  <div class="row">
+  <div id="banner"></div><!--brings in header complete with links from html file-->
 
-    <div class="side">
-      <form class="search" action="">
-        <input type="text" placeholder="Search Posts" name="search">
-        <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-      <h2>Links to popular Discussion Categories:</h2><br>
-      <div class="butt"><a href="#">Category 1 - Pizza</a></div><br>
-      <div class="butt"><a href="#">Category 2 - Bikes</a></div><br>
-      <div class="butt"><a href="#">Category 3 - Coding</a></div>
-    </div>
+  <div class="row">
+    
+    <div id="sb"></div><!--brings in side bar from html file-->
 
     <div class="main">
       <div id="post_template" style="display: none;">
@@ -50,28 +42,27 @@
             <span class="post_date">Date</span>
           </h5>
           <p class="post_content"></p>
-          </div>
+        </div>
 
-          <div id="comment_template" style="display: none;">
-            <div class="post" data-id="0">
+        <div id="comment_template" style="display: none;">
+          <div class="post" data-id="0">
               
-              <h5 class="post_description">
-                <span>Op's username: </span>
-                <span class="post_author">user</span>
-                <span>Date Posted:  </span>
-                <span class="post_date">Date</span>
-                <span>Timestamp:  </span>
-                <span class="post_date">Date</span>
-              </h5>
-              <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
-              <p class="post_content"></p>
+            <h5 class="post_description">
+              <span>Op's username: </span>
+              <span class="post_author">user</span>
+              <span>Date Posted:  </span>
+              <span class="post_date">Date</span>
+              <span>Timestamp:  </span>
+              <span class="post_date">Date</span>
+            </h5>
+            <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
+            <p class="post_content"></p>
+          </div>
         </div>
       </div>
     </div>
-</div>
-<div id="footer">
-
-</div>
+  </div>
+  <div id="footer"></div><!--brings in footer from html file-->
 </body>
 
 </html>
