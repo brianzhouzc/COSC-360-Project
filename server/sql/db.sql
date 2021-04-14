@@ -47,3 +47,7 @@ INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 5","The Firs
 INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 6","Wow I love speederbikes.");
 INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 7","I'm having issues with a faulty protocol droid's memory banks. Can't read the programming language it's written in.");
 INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 8","I need a 'hand' coding my prothstetic arm.");
+/*Comments*/
+INSERT INTO comments (post_id, username, content) VALUES (1, "dvader", "This is a comment");
+INSERT INTO comments (post_id, username, content) VALUES (1, "dvader", "This is a comment too");
+INSERT INTO comments (post_id, username, content) VALUES (1, "parker616", "This also is a comment");
