@@ -75,3 +75,7 @@ function login(username, password) {
         }
     });
 }
+
+function loadRegister(){
+    $("#mainbody").load("register.html");
+}

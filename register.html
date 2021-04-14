@@ -1,0 +1,37 @@
+<script type="text/javascript" src="./js/register.js"></script>
+
+<div class="main">
+  <fieldset id="fieldset3" style="padding-left:50px;">
+    <legend>Create A User</legend>
+    <form method="post" action="server/users.php" id="mainForm" enctype="multipart/form-data">
+      <input type="hidden" name="action" value="register">
+      <table id="userinfo" cellpadding="5%">
+        <tr>
+          <th>Enter Username: </th>
+          <th><input type="text" name="username" class="required"></th>
+        </tr>
+        <tr>
+          <th>User Email: </th>
+          <th><input type="email" name="email" class="required"></th>
+        </tr>
+        <tr>
+          <th>User Password: </th>
+          <th><input type="password" name="password" class="required"></th>
+        </tr>
+        <tr>
+          <th>Re-enter Password: </th>
+          <th><input type="password" name="password-check" class="required"></th>
+        </tr>
+        <tr>
+          <th>User Image Upload: </th>
+          <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)"
+              class="required"></th>
+          <td>Preferred image size is 100*100 pixels</td>
+        </tr>
+        <tr>
+          <th><input type="submit" value="Submit"></th>
+        </tr>
+      </table>
+    </form>
+  </fieldset>
+</div>
