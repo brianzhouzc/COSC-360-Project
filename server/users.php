@@ -37,15 +37,27 @@ if (isset($_POST['action'])) {
             $username = getValueFromKey($_POST, 'username');
             $email = getValueFromKey($_POST, 'email');
             $password = getValueFromKey($_POST, 'password');
-            $avatar = isset_notempty($_FILES['avatar']) ? $_FILES['avatar'] : null;
+            if ($_FILES["avatar"]["name"] !== '') {
+                $avatarProperties = getimagesize($_FILES["avatar"]["tmp_name"]);
+                if ($avatarProperties !== false) {
+                    if (isset_notempty($username, $email, $password)) {
 
-            if (isset_notempty($username, $email, $password)) {
-                $password = md5($password);
-                $response = register($connection, $username, $email, $password, $avatar);
-                exitandclose($response, $connection);
+                        $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+                        $avatar_type = $avatarProperties['mime'];
+                        $password = md5($password);
+                        $response = register($connection, $username, $email, $password, $avatar, $avatar_type);
+                        exitandclose($response, $connection);
+                    } else {
+                        exit(errorResponse(400, "Missing username/email/password"));
+                    }
+                } else {
+                    exit(errorResponse(400, "Invalid avatar - not an image"));
+                }
             } else {
-                exit(errorResponse(400, "Missing username/email/password"));
+                exit(errorResponse(400, "Missing avatar"));
+                //exit(errorResponse(400, "Missing avatar"));
             }
+
             break;
 
         case "forgot":

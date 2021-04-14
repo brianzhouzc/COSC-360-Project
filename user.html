@@ -9,32 +9,35 @@
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <!--need this to run the following script-->
   <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
-    $(function(){
-      $("#banner").load( "header.html", function() {document.getElementById("2").classList.add("active");});//this makes the active link darker + brings in the header
+    $(function () {
+      $("#banner").load("header.html", function () { document.getElementById("2").classList.add("active"); });//this makes the active link darker + brings in the header
       $("#footer").load("footer.html");//brings in the footer
       $("#sb").load("searchbar.html");//brings in the search bar and links
     });
-  </script> 
-  
+  </script>
+
   <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="./js/frontpage.js"></script>
-  
+
 </head>
 
 <body>
-  <div id="banner"></div><!--brings in header complete with links from html file-->
+  <div id="banner"></div>
+  <!--brings in header complete with links from html file-->
 
   <div class="row">
 
-    <div id="sb"></div><!--brings in side bar from html file-->
+    <div id="sb"></div>
+    <!--brings in side bar from html file-->
 
     <div class="main">
       <fieldset id="fieldset3" style="padding-left:50px;">
         <legend>Create A User</legend>
-        <form method="post" action="server/users.php" id="mainForm">
+        <form method="post" action="server/users.php" id="mainForm" enctype="multipart/form-data">
           <input type="hidden" name="action" value="register">
           <table id="userinfo" cellpadding="5%">
             <tr>
@@ -55,7 +58,8 @@
             </tr>
             <tr>
               <th>User Image Upload: </th>
-              <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)" class="required"></th>
+              <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)"
+                  class="required"></th>
               <td>Preferred image size is 100*100 pixels</td>
             </tr>
             <tr>
@@ -67,7 +71,8 @@
     </div>
   </div>
 
-  <div id="footer"></div><!--brings in footer from html file-->
+  <div id="footer"></div>
+  <!--brings in footer from html file-->
 </body>
 
 </html>

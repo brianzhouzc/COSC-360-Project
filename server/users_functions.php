@@ -38,25 +38,22 @@ function logout($connection, $username, $session)
     }
 }
 
-function register($connection, $username, $email, $password, $avatar)
+function register($connection, $username, $email, $password, $avatar, $filetype)
 {
     $user = getUserByNameOrEmail($connection, $username, $email);
     if (isset($user)) {
         return errorResponse(400, "Username/email already exsists");
     } else {
-        $sql = isset($avatar) ?
-            "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);" :
-            "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";
+        $sql = "INSERT INTO users (username, email, password, avatar, avatar_type) VALUES (?, ?, ?, ?, ?);";
 
         $stmt = $connection->prepare($sql);
-        if (isset($avatar))
-            $stmt->bind_param("ssss", $username, $email, $password, $avatar);
-        else
-            $stmt->bind_param("sss", $username, $email, $password);
+
+        $stmt->bind_param("sssbs", $username, $email, $password, $avatar, $filetype);
+        $stmt->send_long_data(3, $avatar);
 
         $stmt->execute();
         // SUCCESS message
-        return dataResponse(200, "Successfully registered", array("action" => "register"));
+        return dataResponse(200, "Successfully registered");
     }
 }
 
