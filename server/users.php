@@ -42,10 +42,17 @@ if (isset($_POST['action'])) {
                 if ($avatarProperties !== false) {
                     if (isset_notempty($username, $email, $password)) {
 
-                        $avatar = file_get_contents($_FILES['avatar']['tmp_name']);
+                        $avatar = imagecreatefromstring(file_get_contents($_FILES['avatar']['tmp_name']));
+                        $avatar = imagescale($avatar, 100, 100);
+
+                        ob_start();
+                        imagepng($avatar);
+                        $avatar = ob_get_contents(); // read from buffer
+                        ob_end_clean(); // delete buffer
+
                         $avatar_type = $avatarProperties['mime'];
                         $password = md5($password);
-                        $response = register($connection, $username, $email, $password, $avatar, $avatar_type);
+                        $response = register($connection, $username, $email, $password, $avatar);
                         exitandclose($response, $connection);
                     } else {
                         exit(errorResponse(400, "Missing username/email/password"));

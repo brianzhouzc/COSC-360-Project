@@ -38,17 +38,17 @@ function logout($connection, $username, $session)
     }
 }
 
-function register($connection, $username, $email, $password, $avatar, $filetype)
+function register($connection, $username, $email, $password, $avatar)
 {
     $user = getUserByNameOrEmail($connection, $username, $email);
     if (isset($user)) {
         return errorResponse(400, "Username/email already exsists");
     } else {
-        $sql = "INSERT INTO users (username, email, password, avatar, avatar_type) VALUES (?, ?, ?, ?, ?);";
+        $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";
 
         $stmt = $connection->prepare($sql);
 
-        $stmt->bind_param("sssbs", $username, $email, $password, $avatar, $filetype);
+        $stmt->bind_param("sssb", $username, $email, $password, $avatar);
         $stmt->send_long_data(3, $avatar);
 
         $stmt->execute();
