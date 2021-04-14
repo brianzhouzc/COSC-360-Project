@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>feddit</title>
+  <!-- Custom styles for this template -->
+  <link href="css/header.css" rel="stylesheet">
+  <link href="css/columns.css" rel="stylesheet">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script> 
+    $(function(){
+      $("#footer").load("footer.html"); 
+      $("#banner").load( "header.html", function() {
+        document.getElementById("1").classList.add("active");
+    });
+    });
+    </script> 
+
+  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" src="./js/frontpage.js"></script>
+
+</head>
+
+<body>
+  <div class="banner" id="banner"></div>
+  <div class="row">
+
+    <div class="side">
+      <form class="search" action="">
+        <input type="text" placeholder="Search Posts" name="search">
+        <button type="submit"><i class="fa fa-search"></i></button>
+      </form>
+      <h2>Links to popular Discussion Categories:</h2><br>
+      <div class="butt"><a href="#">Category 1 - Pizza</a></div><br>
+      <div class="butt"><a href="#">Category 2 - Bikes</a></div><br>
+      <div class="butt"><a href="#">Category 3 - Coding</a></div>
+    </div>
+
+    <div class="main">
+      <div id="post_template" style="display: none;">
+        <div class="post" data-id="0">
+          <h2 class="post_title">Title of selected post</h2>
+          <h5 class="post_description">
+            <span>Op's username: </span>
+            <span class="post_author">user</span>
+            <span>Date Posted:  </span>
+            <span class="post_date">Date</span>
+          </h5>
+          <p class="post_content"></p>
+          </div>
+
+          <div id="comment_template" style="display: none;">
+            <div class="post" data-id="0">
+              
+              <h5 class="post_description">
+                <span>Op's username: </span>
+                <span class="post_author">user</span>
+                <span>Date Posted:  </span>
+                <span class="post_date">Date</span>
+                <span>Timestamp:  </span>
+                <span class="post_date">Date</span>
+              </h5>
+              <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
+              <p class="post_content"></p>
+        </div>
+      </div>
+    </div>
+</div>
+<div id="footer">
+
+</div>
+</body>
+
+</html>
