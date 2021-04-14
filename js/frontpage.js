@@ -20,8 +20,6 @@ function getPosts(order = "DESC", limit = 5, offset = 0) {
             console.log(response.data);
 
             response.data.posts.forEach(function (element) {
-                current_offset++;
-
                 var title = element.title;
                 var author = element.username;
                 var date = element.timestamp;
