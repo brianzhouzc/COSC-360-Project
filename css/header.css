@@ -78,6 +78,14 @@ img {
   padding: 1vw 2vw;
   text-decoration: none;
 }
+
+#info_login a {
+  all: unset;
+}
+
+#info_login a:hover {
+  background-color: #4d25ff;
+}
   
 /* Change color on hover */
 .navbar a:hover {

@@ -18,6 +18,7 @@ window.onload = function () {
 
     mainForm.onsubmit = function (e) {
         e.preventDefault();
+        console.log($('#username').val(), $('#password').val());
         var requiredInputs = document.querySelectorAll(".required");
         var err = false;
 
@@ -31,6 +32,7 @@ window.onload = function () {
             }
         }
         if (!err) {
+            console.log($('#username').val(), $('#password').val());
             login($('#username').val(), $('#password').val());
         }
         else {
