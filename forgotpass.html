@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!--This is the forgot password page-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,24 +21,6 @@
 
   <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script type="text/javascript" src="./js/frontpage.js"></script>
-
-  <script type="text/javascript" src="server/validate.js">
-    
-    function checkPasswordMatch(e) {
-      var p1 = document.getElementById("password").value;
-      var p2 = document.getElementById("password-check").value;
-      if(p1 != p2) {
-      makeRed(document.getElementById("password"));
-      makeRed(document.getElementById("password-check"));
-      makeRed(document.getElementById("avatar"));
-      alert("passwords do not match.")
-      e.preventDefault();
-      }
-      else {
-      alert("checks validated");
-      }
-    }
-  </script>
 
 </head>
 
