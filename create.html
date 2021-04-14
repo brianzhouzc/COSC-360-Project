@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--This page is for searching for a user by name, email or posts they have written-->
+<!--This page is for creating a post as long as you are logged in-->
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin</title>
+  <title>feddit</title>
   <!-- Custom styles for this template -->
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
@@ -14,7 +14,7 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
   <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
     $(function(){
-      $("#banner").load( "header.html", function() {document.getElementById("3").classList.add("active");});//this makes the active link darker + brings in the header
+      $("#banner").load( "header.html", function() {document.getElementById("4").classList.add("active");});//this makes the active link darker + brings in the header
       $("#footer").load("footer.html");//brings in the footer
       $("#sb").load("searchbar.html");//brings in the search bar and links
     });
@@ -33,24 +33,27 @@
     <div id="sb"></div><!--brings in side bar from html file-->
 
     <div class="main">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <form class="search" action="">
-           <input type="text" placeholder="Search Users by Name, Email or Post." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
-      </form>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
+        <form method="post" action="server/postfunctions.php" id="mainForm">
+            <div>
+                <div class="post" data-id="0">
+                    <h5 class="post_description">
+                        <span>Op's username: </span>
+                        <!--should automatically get the author's username from who they are logged in as-->
+                        <span>Date Posted:  </span>
+                        <!--should automatically get the timestamp-->
+                    </h5>
+                    <!--new post title-->
+                    <input id="npost_title" type="text" name="npost_title" class="post_title" value="What is the Title?">
+                    <!--new post_content-->
+                    <input id="npost_content" type="text" name="npost_content" class="post_content" value="What do you want to say?">
+                </div>
+            </div>
+            <br><input type="submit" value="Post">
+        </form>
     </div>
+
   </div>
   <div id="footer"></div><!--brings in footer from html file-->
 </body>
+
 </html>
