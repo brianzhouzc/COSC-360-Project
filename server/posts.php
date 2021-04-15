@@ -47,10 +47,10 @@ if (isset_notempty($_POST['action'])) {
         case "search":
             $term = getValueFromKey($_POST, 'term');
             if (isset_notempty($term)) {
-                $result = getPostsBySearch($connection, $term);
+                $results = getPostsBySearch($connection, $term);
                 $posts = array();
                 while ($row = $results->fetch_assoc()) {
-                    array_push($posts, array("username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']));
+                    array_push($posts, array("id" => $row['id'], "username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views'], "title" => $row['title']));
                 }
                 exit(dataResponse(200, "Success", array("posts" => $posts)));
             } else {
