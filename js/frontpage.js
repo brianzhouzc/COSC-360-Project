@@ -27,7 +27,8 @@ function getPosts(order = "DESC", limit = 5, offset = 0) {
                 var id = element.id;
 
                 $("#post_template .post").attr("id", "post_" + id);
-                $("#post_template .post_title").text(title);
+                $("#post_template .post_title .post_title_link").text(title);
+                $("#post_template .post_title .post_title_link").attr("href", "post.html?post_id=" + id);
                 $("#post_template .post_description .post_author").text(author);
                 $("#post_template .post_description .post_date").text(date);
                 $("#post_template .post_content").text(content);

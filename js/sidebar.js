@@ -24,7 +24,7 @@ function getPopularPosts(limit = 5, offset = 0) {
 
                 $("#popular_template .popular_title").attr("id", "popular_" + id);
                 $("#popular_template .popular_title .popular_title_link").html(title + " - " + views + " views");
-                $("#popular_template .popular_title .popular_title_link").attr("href", "./post?id=" + id);
+                $("#popular_template .popular_title .popular_title_link").attr("href", "post.html?post_id=" + id);
 
                 $("#popular_template").children().clone().appendTo('#popular_posts');
             });
