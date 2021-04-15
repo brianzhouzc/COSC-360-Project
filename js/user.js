@@ -1,5 +1,5 @@
 if ("username" in sessionStorage && "session" in sessionStorage) {
-
+    $("#main_load").load("userinfo.html");//brings in the footer
 } else {
     $('#login_message_area').attr('style', '');
     $("#main_load").load("login.html");//brings in the footer
