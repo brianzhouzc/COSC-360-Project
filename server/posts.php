@@ -97,6 +97,7 @@ if (isset_notempty($_POST['action'])) {
                         "username" => $result['username'], "title" => $result['title'],
                         "content" => $result['content'], "timestamp" => $result['timestamp'], "views" => $result['views']
                     ));
+                    addToViews($connection, $post_id);
                     exit(dataResponse(200, "Success", $post));
                 } else {
                     exit(errorResponse(400, "Post does not exsist"));

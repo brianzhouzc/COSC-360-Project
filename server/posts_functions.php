@@ -124,3 +124,11 @@ function getLatestPost($connection)
 {
     return getPostsDESC($connection, 1);
 }
+
+function addToViews($connection, $post_id)
+{
+    $sql = "UPDATE posts SET views = views + 1 WHERE id = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("i",  $post_id);
+    $stmt->execute();
+}
