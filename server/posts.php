@@ -63,8 +63,37 @@ if (isset_notempty($_POST['action'])) {
             $limit = getValueFromKey($_POST, 'limit');
             $offset = getValueFromKey($_POST, 'offset');
             $post_id = getValueFromKey($_POST, 'post_id');
+            $username = getValueFromKey($_POST, 'username');
             $results = '';
-            if (!isset_notempty($post_id)) {
+            if (isset_notempty($post_id)) {
+                $result = getPostById($connection, $post_id);
+                if (isset_notempty($result)) {
+                    $post = array("post" => array(
+                        "id" => $result['id'],
+                        "username" => $result['username'], "title" => $result['title'],
+                        "content" => $result['content'], "timestamp" => $result['timestamp'], "views" => $result['views']
+                    ));
+                    addToViews($connection, $post_id);
+                    exit(dataResponse(200, "Success", $post));
+                } else {
+                    exit(errorResponse(400, "Post does not exsist"));
+                }
+            } else if (isset_notempty($username)) {
+                $results = getPostsByUsername($connection, $username);
+                if (isset_notempty($results)) {
+                    $posts = array();
+                    while ($row = $results->fetch_assoc()) {
+                        array_push($posts, array(
+                            "id" => $row['id'],
+                            "username" => $row['username'], "title" => $row['title'],
+                            "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']
+                        ));
+                    }
+                    exit(dataResponse(200, "Success", array("posts" => $posts)));
+                } else {
+                    exit(errorResponse(400, "Post does not exsist"));
+                }
+            } else {
                 if (!isset_notempty($limit))
                     $limit = 5;
                 if (!isset_notempty($offset))
@@ -89,19 +118,6 @@ if (isset_notempty($_POST['action'])) {
                     ));
                 }
                 exit(dataResponse(200, "Success", array("posts" => $posts)));
-            } else {
-                $result = getPostById($connection, $post_id);
-                if (isset_notempty($result)) {
-                    $post = array("post" => array(
-                        "id" => $result['id'],
-                        "username" => $result['username'], "title" => $result['title'],
-                        "content" => $result['content'], "timestamp" => $result['timestamp'], "views" => $result['views']
-                    ));
-                    addToViews($connection, $post_id);
-                    exit(dataResponse(200, "Success", $post));
-                } else {
-                    exit(errorResponse(400, "Post does not exsist"));
-                }
             }
 
             break;

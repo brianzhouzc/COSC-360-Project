@@ -83,7 +83,7 @@ function getPostsByUsername($connection, $username)
 {
     $sql = "SELECT * FROM posts WHERE username = ?;";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $username);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
