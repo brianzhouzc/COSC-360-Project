@@ -20,7 +20,7 @@
     });
   </script>
 
-  <script type="text/javascript" src="./js/frontpage.js"></script>
+  <script type="text/javascript" src="./js/admin.js"></script>
 
 </head>
 
@@ -35,22 +35,48 @@
 
     <div class="main">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <form class="search" action="">
-        <input type="text" placeholder="Search Users by Name, Email or Post." name="search">
+
+      <form id="admin_search" class="search" method="POST" action="./server/admins.php">
+        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post.">
+        <select id="admin_search_option" name="option">
+          <option value="username_email">Username/Email</option>
+          <option value="post">Post</option>
+        </select>
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
+      <h3 id="search_title">Please search for post/user</h3>
+      <div id="post_template" style="display: none;">
+        <form id="post_template_form" class="post" method="POST">
+          <input class="post_title" name="post_title" value="Dicussion #1"></input>
+          <h5 class="post_description">
+            <span>Posted by: </span>
+            <span class="post_author">author</span>
+            <span> on: </span>
+            <span class="post_date">Dec 7, 2017</span>
+          </h5>
+          <textarea class="post_content" name="post_content">Some default value</textarea>
+          <div> <button type="submit" class="edit_post">Edit</button></div>
+        </form>
+      </div>
+      <div id="posts_container"></div>
+
+
+      <div id="user_template" style="display: none;">
+        <form id="user_template_form" class="user" method="POST">
+          <h3 id="user_title">
+            <span id="user_title_name">Username</span> -
+            <span id="user_title_email">Email</span>
+          </h3>
+          <label for="user_enable">User enable: </label>
+          <input type="checkbox" id="user_enable" name="user_enable">
+          <button type="submit">Confirm</button>
+        </form>
+      </div>
+      <div id="users_container"></div>
+
     </div>
+
+  </div>
   </div>
   <div id="footer"></div>
   <!--brings in footer from html file-->

@@ -12,37 +12,41 @@ function authenticateAdmin($connection, $username, $session)
         $stmt->execute();
         $results = $stmt->get_result();
 
-        return (isset($results->fetch_assoc()));
+        return ($results->num_rows > 0);
     } else {
         return false;
     }
 }
 
-function enableUser($connection, $admin, $session, $username)
+function enableUser($connection, $username)
 {
-    return setUserEnable($connection, $admin, $session, $username, true);
+    return setUserEnable($connection, $username, true);
 }
 
-function disableUser($connection, $admin, $session, $username)
+function disableUser($connection, $username)
 {
-    return setUserEnable($connection, $admin, $session, $username, false);
+    return setUserEnable($connection, $username, false);
 }
 
-function setUserEnable($connection, $admin, $session, $username, $enable)
+function setUserEnable($connection, $username, $enable)
 {
-    if (authenticateAdmin($connection, $admin, $session)) {
-        $user = getUserByName($connection, $username);
-        if (isset($user)) {
-            $sql = "UPDATE users SET enable = ? WHERE username = ?;";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param("is", intval($enable), $username);
-            $stmt->execute();
-            return true;
-        } else {
-            return false;
-        }
+    $user = getUserByName($connection, $username);
+    if (isset($user)) {
+        $sql = "UPDATE users SET enable = ? WHERE username = ?;";
+        $stmt = $connection->prepare($sql);
+        $enable = intval($enable);
+        $stmt->bind_param("is", $enable, $username);
+        $stmt->execute();
+        return true;
     } else {
         return false;
     }
 }
 
+function adminEditPost($connection, $post_id, $title, $content)
+{
+    $sql = "UPDATE posts SET title = ?, content = ? WHERE id = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("ssi", $title, $content, $post_id);
+    $stmt->execute();
+}
