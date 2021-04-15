@@ -98,7 +98,7 @@ if (isset_notempty($_POST['action'])) {
                     $limit = 5;
                 if (!isset_notempty($offset))
                     $offset = 0;
-                switch ($offset) {
+                switch ($order) {
                     case "DESC":
                         $results = getPostsDESC($connection, $limit, $offset);
                         break;

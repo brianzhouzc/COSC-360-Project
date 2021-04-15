@@ -36,18 +36,15 @@
     <div class="main">
       <form method="post" action="server/postfunctions.php" id="mainForm">
         <div>
-          <div class="post" data-id="0">
-            <h5 class="post_description">
-              <span>Op's username: </span>
-              <!--should automatically get the author's username from who they are logged in as-->
-              <span>Date Posted: </span>
-              <!--should automatically get the timestamp-->
-            </h5>
+          <div>
             <!--new post title-->
-            <input id="npost_title" type="text" name="npost_title" class="post_title" value="What is the Title?">
+            <input id="npost_title" type="text" name="npost_title" class="post_title" placeholder="What is the Title?">
+          </div>
+
+          <div>
             <!--new post_content-->
-            <input id="npost_content" type="text" name="npost_content" class="post_content"
-              value="What do you want to say?">
+            <textarea id="npost_content" name="npost_content" class="post_content"
+              placeholder="What do you want to say?"></textarea>
           </div>
         </div>
         <br><input type="submit" value="Post">
