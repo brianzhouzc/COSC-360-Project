@@ -45,19 +45,24 @@
         <p class="post_content"></p>
 
         <h3>Comments:</h3>
-
-        <div id="comment_template" style="display: none;">
-          <div class=" comment" data-id="0">
-            <h5 class="comment_description">
-              <span>Op's username: </span>
-              <span class="comment_author">user</span>
-              <span>Date Posted: </span>
-              <span class="comment_date">Date</span>
-            </h5>
-            <p class="comment_content"></p>
+        <div id="comments_container">
+          <div id="comment_template" style="display: none;">
+            <div class=" comment" data-id="0">
+              <h5 class="comment_description">
+                <span>Op's username: </span>
+                <span class="comment_author">user</span>
+                <span>Date Posted: </span>
+                <span class="comment_date">Date</span>
+              </h5>
+              <p class="comment_content"></p>
+            </div>
           </div>
         </div>
-        <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
+
+        <form method="post" action="server/comments.php" id="commentForm">
+          <textarea class="require" rows="4" cols="50" name="content" placeholder="Leave a comment here!"></textarea>
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   </div>

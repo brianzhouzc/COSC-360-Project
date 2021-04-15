@@ -59,12 +59,12 @@ function getComments(post_id) {
                 var content = element.content;
                 var id = element.id;
 
-                $("#comment_template .comment").attr("id", "post_" + id);
-                $("#comment_template .comment .comment_description .comment_author").text(author);
-                $("#comment_template .comment .comment_description .comment_date").text(date);
-                $("#comment_template .comment .comment_content").text(content);
+                $("#comments_container #comment_template .comment").attr("id", "post_" + id);
+                $("#comments_container #comment_template .comment .comment_description .comment_author").text(author);
+                $("#comments_container #comment_template .comment .comment_description .comment_date").text(date);
+                $("#comments_container #comment_template .comment .comment_content").text(content);
 
-                $("#comment_template").children().clone().appendTo('.main');
+                $("#comment_template").children().clone().appendTo('#comments_container');
             });
         } else if (response.hasOwnProperty('errors')) {
             alert(response.errors.detail);
@@ -76,4 +76,50 @@ $(document).ready(function () {
         getPost(urlParams.get('post_id'));
         getComments(urlParams.get('post_id'));
     }
+
+    var commentForm = document.getElementById("commentForm");
+    commentForm.onsubmit = function (e) {
+        e.preventDefault();
+        var formData = new FormData(commentForm);
+        formData.append("action", "create");
+        formData.append('post_id', urlParams.get('post_id'));
+        formData.append('username', sessionStorage.getItem("username"));
+        formData.append('session', sessionStorage.getItem("session"));
+        console.log(formData);
+        $.ajax({
+            type: "POST",
+            url: "/server/comments.php",
+            data: formData,
+            processData: false,
+            contentType: false,
+            dataType: "json",
+            encode: true
+        }).done(function (response) {
+            console.log(response);
+            if (response.hasOwnProperty('data')) {
+                alert('Comment posted!');
+                window.location.reload();
+            } else if (response.hasOwnProperty('errors')) {
+                alert(response.errors.detail);
+                document.querySelectorAll(".required").forEach(function (element) {
+                    makeRed(element);
+                });
+            }
+        });
+    }
 });
+
+function isBlank(inputField) {
+    if (inputField.value == "") {
+        return true;
+    }
+    return false;
+}
+
+function makeRed(inputDiv) {
+    inputDiv.style.borderColor = "#AA0000";
+}
+
+function makeClean(inputDiv) {
+    inputDiv.style.borderColor = "#FFFFFF";
+}

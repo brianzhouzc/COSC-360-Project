@@ -21,6 +21,17 @@ if (isset($_POST['action'])) {
                 exit(errorResponse(400, "Missing post_id"));
             }
             break;
+        case "create":
+            $post_id = getValueFromKey($_POST, 'post_id');
+            $username = getValueFromKey($_POST, 'username');
+            $session = getValueFromKey($_POST, 'session');
+            $content = getValueFromKey($_POST, 'content');
+            if (isset_notempty($post_id, $username, $session, $content)) {
+                createComment($connection, $post_id, $content, $username, $session);
+            } else {
+                exit(errorResponse(400, "Missing post_id/username/session/content"));
+            }
+            break;
     }
 } else {
     exit(errorResponse(400, "Missing action"));

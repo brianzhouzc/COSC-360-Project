@@ -2,6 +2,8 @@
 require 'database.php';
 require_once 'helper.php';
 require_once 'posts_functions.php';
+require_once 'users_functions.php';
+
 
 function getCommentsByPostId($connection, $post_id)
 {
@@ -17,5 +19,24 @@ function getCommentsByPostId($connection, $post_id)
         return $result;
     } else {
         return null;
+    }
+}
+
+function createComment($connection, $post_id, $content, $username, $session)
+{
+    if (authenticateUser($connection, $username, $session)) {
+        $post = getPostById($connection, $post_id);
+
+        if (isset($post)) {
+            $sql = "INSERT INTO comments (post_id, username, content) VALUES (?, ?, ?);";
+            $stmt = $connection->prepare($sql);
+            $stmt->bind_param("sss", $post_id, $username, $content);
+            $stmt->execute();
+            exit(dataResponse(200, "Success"));
+        } else {
+            exit(errorResponse(400, "Invalid post"));
+        }
+    } else {
+        exit(errorResponse(400, "Unauthorize user"));
     }
 }
