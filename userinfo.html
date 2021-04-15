@@ -1,0 +1,31 @@
+<fieldset id="fieldset3" style="padding-left:50px;">
+    <legend>Edit your profile</legend>
+    <form method="post" action="server/users.php" id="mainForm" enctype="multipart/form-data">
+        <input type="hidden" name="action" value="edit">
+        <table id="userinfo" cellpadding="5%">
+            <tr>
+                <th>Username: </th>
+                <th><input id="input_username" type="text" class="required" disabled></th>
+            </tr>
+            <tr>
+                <th>Email: </th>
+                <th><input id="input_email" type="email" name="email" class="required"></th>
+            </tr>
+            <tr>
+                <th>Password: </th>
+                <th><input type="password" name="password" placeholder="**********"></th>
+            </tr>
+            <tr>
+                <th>Avatar Upload: </th>
+                <th>
+                    <input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)">
+                </th>
+                <td>Preferred image size is 100*100 pixels</td>
+            </tr>
+            <tr>
+                <th><input type="submit" value="Submit"></th>
+            </tr>
+        </table>
+    </form>
+</fieldset>
+<script type="text/javascript" src="./js/userinfo.js"></script>

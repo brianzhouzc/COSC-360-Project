@@ -18,8 +18,6 @@ function getPopularPosts(limit = 5, offset = 0) {
             console.log(response.data);
 
             response.data.posts.forEach(function (element) {
-                current_offset++;
-
                 var title = element.title;
                 var id = element.id;
                 var views = element.views;

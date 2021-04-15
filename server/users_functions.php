@@ -107,6 +107,31 @@ function forgot($connection, $email, $token, $password)
     }
 }
 
+function edit($connection, $username, $email, $password, $avatar)
+{
+    if (isset_notempty($email)) {
+        $sql = "UPDATE users SET email = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $email, $username);
+        $stmt->execute();
+    }
+    if (isset_notempty($password)) {
+        $password = md5($password);
+        $sql = "UPDATE users SET password = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $password, $username);
+        $stmt->execute();
+    }
+    if (isset_notempty($avatar)) {
+        $sql = "UPDATE users SET avatar = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $avatar, $username);
+        $stmt->send_long_data(0, $avatar);
+        $stmt->execute();
+    }
+    return dataResponse(200, "Updated");
+}
+
 function updateSession($connection, $username, $session)
 {
     $sql = "UPDATE users SET session = ? WHERE username = ?;";
