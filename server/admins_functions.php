@@ -50,3 +50,17 @@ function adminEditPost($connection, $post_id, $title, $content)
     $stmt->bind_param("ssi", $title, $content, $post_id);
     $stmt->execute();
 }
+
+function adminRemovePost($connection, $post_id)
+{
+    $sql = "DELETE FROM comments WHERE post_id = ?";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("i", $post_id);
+    $stmt->execute();
+
+    $sql2 = "DELETE FROM posts WHERE id = ?;";
+    $stmt2 = $connection->prepare($sql2);
+    $stmt2->bind_param("i", $post_id);
+    $stmt2->execute();
+    exit(dataResponse(200, "Success!"));
+}

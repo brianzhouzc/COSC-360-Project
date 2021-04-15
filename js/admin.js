@@ -43,9 +43,13 @@ $(document).ready(function () {
                             $('#post_' + id).submit(function (e) {
                                 e.preventDefault();
                                 var postForm = document.getElementById("post_" + id);
-
                                 var formData = new FormData(postForm);
-                                formData.append('action', 'edit');
+                                if (formData.get('post_remove') === null) {
+                                    formData.append('action', 'edit');
+                                } else {
+                                    formData.append('action', 'remove');
+                                }
+
                                 formData.append('post_id', id);
                                 formData.append('username', sessionStorage.getItem('username'));
                                 formData.append('session', sessionStorage.getItem('session'));
@@ -67,6 +71,7 @@ $(document).ready(function () {
                                         alert(response.errors.detail);
                                     }
                                 });
+
                             });
                         });
 
@@ -115,7 +120,7 @@ $(document).ready(function () {
                                 formData.append('enable', 0);
                             else
                                 formData.append('enable', 1);
-                            
+
                             $.ajax({
                                 type: "POST",
                                 url: "/server/admins.php",
@@ -133,11 +138,8 @@ $(document).ready(function () {
                                     alert(response.errors.detail);
                                 }
                             });
-                            
+
                         });
-
-
-
                     } else if (response.hasOwnProperty('errors')) {
                         $('#search_title').text('No result');
                     }

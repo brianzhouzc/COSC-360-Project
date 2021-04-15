@@ -55,7 +55,11 @@
             <span class="post_date">Dec 7, 2017</span>
           </h5>
           <textarea class="post_content" name="post_content">Some default value</textarea>
-          <div> <button type="submit" class="edit_post">Edit</button></div>
+          <div>
+            <label for="post_remove">Remove post?</label>
+            <input type="checkbox" id="post_remove" name="post_remove">
+            <button type="submit" class="edit_post">Confirm</button>
+          </div>
         </form>
       </div>
       <div id="posts_container"></div>
@@ -67,7 +71,6 @@
             <span id="user_title_name">Username</span> -
             <span id="user_title_email">Email</span>
           </h3>
-          <label for="user_enable">User enable: </label>
           <input type="checkbox" id="user_enable" name="user_enable">
           <button type="submit">Confirm</button>
         </form>

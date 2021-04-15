@@ -57,6 +57,14 @@ if (isset($_POST['action'])) {
                     exit(errorResponse(400, "Missing post id/title/content"));
                 }
                 break;
+            case "remove":
+                $post_id = getValueFromKey($_POST, 'post_id');
+                if (isset_notempty($post_id)) {
+                    adminRemovePost($connection, $post_id);
+                    exit(dataResponse(200, "Success!"));
+                } else {
+                    exit(errorResponse(400, "Missing post id"));
+                }
             case "user":
                 $edit_username = getValueFromKey($_POST, 'edit_username');
                 $enable = getValueFromKey($_POST, 'enable');
