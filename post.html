@@ -20,7 +20,7 @@
     });
   </script>
 
-  <script type="text/javascript" src="./js/frontpage.js"></script>
+  <script type="text/javascript" src="./js/post.js"></script>
 
 </head>
 
@@ -34,33 +34,30 @@
     <!--brings in side bar from html file-->
 
     <div class="main">
-      <div id="post_template" style="display: none;">
-        <div class="post" data-id="0">
-          <h2 class="post_title">Title of selected post</h2>
-          <h5 class="post_description">
-            <span>Op's username: </span>
-            <span class="post_author">user</span>
-            <span>Date Posted: </span>
-            <span class="post_date">Date</span>
-          </h5>
-          <p class="post_content"></p>
-        </div>
+      <div class="post" data-id="0">
+        <h2 class="post_title">Title of selected post</h2>
+        <h5 class="post_description">
+          <span>Op's username: </span>
+          <span class="post_author">user</span>
+          <span>Date Posted: </span>
+          <span class="post_date">Date</span>
+        </h5>
+        <p class="post_content"></p>
+
+        <h3>Comments:</h3>
 
         <div id="comment_template" style="display: none;">
-          <div class="post" data-id="0">
-
-            <h5 class="post_description">
+          <div class=" comment" data-id="0">
+            <h5 class="comment_description">
               <span>Op's username: </span>
-              <span class="post_author">user</span>
+              <span class="comment_author">user</span>
               <span>Date Posted: </span>
-              <span class="post_date">Date</span>
-              <span>Timestamp: </span>
-              <span class="post_date">Date</span>
+              <span class="comment_date">Date</span>
             </h5>
-            <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
-            <p class="post_content"></p>
+            <p class="comment_content"></p>
           </div>
         </div>
+        <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
       </div>
     </div>
   </div>

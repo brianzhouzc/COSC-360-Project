@@ -4,7 +4,7 @@ require_once 'helper.php';
 require_once 'users_functions.php';
 require_once 'posts_functions.php';
 
-if (isset($_POST['action'])) {
+if (isset_notempty($_POST['action'])) {
     $action = $_POST['action'];
 
     switch ($action) {
@@ -62,32 +62,47 @@ if (isset($_POST['action'])) {
             $order = getValueFromKey($_POST, 'order');
             $limit = getValueFromKey($_POST, 'limit');
             $offset = getValueFromKey($_POST, 'offset');
+            $post_id = getValueFromKey($_POST, 'post_id');
             $results = '';
+            if (!isset_notempty($post_id)) {
+                if (!isset_notempty($limit))
+                    $limit = 5;
+                if (!isset_notempty($offset))
+                    $offset = 0;
+                switch ($offset) {
+                    case "DESC":
+                        $results = getPostsDESC($connection, $limit, $offset);
+                        break;
+                    case "ASC":
+                        $results = getPostsASC($connection, $limit, $offset);
+                        break;
+                    default:
+                        $results = getPostsDESC($connection, $limit, $offset);
+                        break;
+                }
+                $posts = array();
+                while ($row = $results->fetch_assoc()) {
+                    array_push($posts, array(
+                        "id" => $row['id'],
+                        "username" => $row['username'], "title" => $row['title'],
+                        "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']
+                    ));
+                }
+                exit(dataResponse(200, "Success", array("posts" => $posts)));
+            } else {
+                $result = getPostById($connection, $post_id);
+                if (isset_notempty($result)) {
+                    $post = array("post" => array(
+                        "id" => $result['id'],
+                        "username" => $result['username'], "title" => $result['title'],
+                        "content" => $result['content'], "timestamp" => $result['timestamp'], "views" => $result['views']
+                    ));
+                    exit(dataResponse(200, "Success", $post));
+                } else {
+                    exit(errorResponse(400, "Post does not exsist"));
+                }
+            }
 
-            if (!isset_notempty($limit))
-                $limit = 5;
-            if (!isset_notempty($offset))
-                $offset = 0;
-            switch ($offset) {
-                case "DESC":
-                    $results = getPostsDESC($connection, $limit, $offset);
-                    break;
-                case "ASC":
-                    $results = getPostsASC($connection, $limit, $offset);
-                    break;
-                default:
-                    $results = getPostsDESC($connection, $limit, $offset);
-                    break;
-            }
-            $posts = array();
-            while ($row = $results->fetch_assoc()) {
-                array_push($posts, array(
-                    "id" => $row['id'],
-                    "username" => $row['username'], "title" => $row['title'],
-                    "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']
-                ));
-            }
-            exit(dataResponse(200, "Success", array("posts" => $posts)));
             break;
         case "popular":
             $limit = getValueFromKey($_POST, 'limit');

@@ -1,22 +1,27 @@
 <?php
-require 'database.php';
+require_once 'database.php';
 require_once 'helper.php';
-require_once 'users.php';
-require_once 'posts.php';
+require_once 'comments_functions.php';
 
-function getCommentsByPostId($connection, $post_id)
-{
-    $post = getPostById($connection, $post_id);
+if (isset($_POST['action'])) {
+    $action = $_POST['action'];
 
-    if (isset($post)) {
-        $sql = "SELECT * FROM comments WHERE post_id = ? ORDER BY timestamp DESC;";
-        $stmt = $connection->prepare($sql);
-        $stmt->bind_param("i", $post_id);
-        $stmt->execute();
-        $result = $stmt->get_result();
+    switch ($action) {
+        case "get":
+            $post_id = getValueFromKey($_POST, 'post_id');
+            if (isset_notempty($post_id)) {
+                $results = getCommentsByPostId($connection, intval($post_id));
 
-        return $result;
-    } else {
-        //post does not exist
+                $comments = array();
+                while ($row = $results->fetch_assoc()) {
+                    array_push($comments, array("id" =>  $row['id'], "username" => $row['username'], "content" => $row['content'], "timestamp" => $row['timestamp'], "views" => $row['views']));
+                }
+                exit(dataResponse(200, "Success", array("comments" => $comments)));
+            } else {
+                exit(errorResponse(400, "Missing post_id"));
+            }
+            break;
     }
+} else {
+    exit(errorResponse(400, "Missing action"));
 }
