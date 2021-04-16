@@ -1,26 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-  <!--This is the searchbar and links to popular discussions that you see on left-hand side of every screen-->
+<div class="side">
+  <input class="search_input" id="search_input" type="text" placeholder="Search Posts">
+  <button class="search_button" id="search_button"><i class="fa fa-search"></i></button>
+  <h2 id="search_container_title" style="display: none;">Result: </h2>
+  <ul id="search_container">
 
-<head>
-   <meta charset="utf-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   <title>searchbar</title>
-   <link href="css/header.css" rel="stylesheet">
-   <link href="css/columns.css" rel="stylesheet">
-   <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
-</head>
-
-<body>
-    <div class="side">
-        <form class="search" action="">
-          <input type="text" placeholder="Search Posts" name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-        <h2>Links to popular posts:</h2><br>
-        <ul>
-          <li><div class="post_title"><a href="#"></a></div><br></li><!--put in post titles as links and order by most viewed-->
-        </ul>
+  </ul>
+  <div id="search_template" style="display: none;">
+    <li class="search_title">
+      <a class="search_title_link" href="#">Template</a>
+    </li>
+  </div>
+  <h2>Links to popular posts:</h2>
+  <ul id="popular_posts">
+    <div id="popular_template" style="display: none;">
+      <li class="popular_title">
+        <a class="popular_title_link" href="#">Template</a>
+      </li>
     </div>
+    <!--put in post titles as links and order by most viewed-->
+  </ul>
+</div>
+<script type="text/javascript" src="./js/sidebar.js"></script>
 </body>
-</html>

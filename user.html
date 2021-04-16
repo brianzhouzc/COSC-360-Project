@@ -2,72 +2,48 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>feddit</title>
-  <!-- Custom styles for this template -->
-  <link href="css/header.css" rel="stylesheet">
-  <link href="css/columns.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
-  <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
-    $(function(){
-      $("#banner").load( "header.html", function() {document.getElementById("2").classList.add("active");});//this makes the active link darker + brings in the header
-      $("#footer").load("footer.html");//brings in the footer
-      $("#sb").load("searchbar.html");//brings in the search bar and links
-    });
-  </script> 
-  
-  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="./js/frontpage.js"></script>
-  
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>feddit</title>
+    <!-- Custom styles for this template -->
+    <link href="css/header.css" rel="stylesheet">
+    <link href="css/columns.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
+    <!--need this to run the following script-->
+    <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
+        $(function () {
+            $("#banner").load("header.html", function () { document.getElementById("2").classList.add("active"); });//this makes the active link darker + brings in the header
+            $("#footer").load("footer.html");//brings in the footer
+            $("#sb").load("searchbar.html");//brings in the search bar and links
+        });
+    </script>
 </head>
 
 <body>
-  <div id="banner"></div><!--brings in header complete with links from html file-->
+    <div id="banner"></div>
+    <!--brings in header complete with links from html file-->
 
-  <div class="row">
+    <div class="row">
 
-    <div id="sb"></div><!--brings in side bar from html file-->
+        <div id="sb"></div>
+        <!--brings in side bar from html file-->
 
-    <div class="main">
-      <fieldset id="fieldset3" style="padding-left:50px;">
-        <legend>Create A User</legend>
-        <form method="post" action="server/users.php" id="mainForm">
-          <input type="hidden" name="action" value="register">
-          <table id="userinfo" cellpadding="5%">
-            <tr>
-              <th>Enter Username: </th>
-              <th><input type="text" name="username" class="required"></th>
-            </tr>
-            <tr>
-              <th>User Email: </th>
-              <th><input type="email" name="email" class="required"></th>
-            </tr>
-            <tr>
-              <th>User Password: </th>
-              <th><input type="password" name="password" class="required"></th>
-            </tr>
-            <tr>
-              <th>Re-enter Password: </th>
-              <th><input type="password" name="password-check" class="required"></th>
-            </tr>
-            <tr>
-              <th>User Image Upload: </th>
-              <th><input type="file" id="avatar" name="avatar" accept="image/png, image/jpeg" value="(100px*100px)" class="required"></th>
-              <td>Preferred image size is 100*100 pixels</td>
-            </tr>
-            <tr>
-              <th><input type="submit" value="Submit"></th>
-            </tr>
-          </table>
-        </form>
-      </fieldset>
-    </div>
-  </div>
 
-  <div id="footer"></div><!--brings in footer from html file-->
+        <div id="main" class="main">
+            <div id="login_message_area" style="display: none;">
+                <h1 id="login_message" style="display: inline-block;">Please Login</h1>
+                <button id="login_toggle" onclick="javascript:toggleLoginRegister();" style="display: inline-block;">
+                    Or Register
+                </button>
+            </div>
+            <div id="main_load"></div>
+        </div>
+        <script type="text/javascript" src="./js/user.js"></script>
+
+        <div id="footer"></div>
+        <!--brings in footer from html file-->
 </body>
 
 </html>

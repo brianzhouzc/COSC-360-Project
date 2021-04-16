@@ -44,19 +44,16 @@ function register($connection, $username, $email, $password, $avatar)
     if (isset($user)) {
         return errorResponse(400, "Username/email already exsists");
     } else {
-        $sql = isset($avatar) ?
-            "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);" :
-            "INSERT INTO users (username, email, password) VALUES (?, ?, ?);";
+        $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";
 
         $stmt = $connection->prepare($sql);
-        if (isset($avatar))
-            $stmt->bind_param("ssss", $username, $email, $password, $avatar);
-        else
-            $stmt->bind_param("sss", $username, $email, $password);
+
+        $stmt->bind_param("sssb", $username, $email, $password, $avatar);
+        $stmt->send_long_data(3, $avatar);
 
         $stmt->execute();
         // SUCCESS message
-        return dataResponse(200, "Successfully registered", array("action" => "register"));
+        return dataResponse(200, "Successfully registered");
     }
 }
 
@@ -108,6 +105,31 @@ function forgot($connection, $email, $token, $password)
     } else {
         return errorResponse(400, "Email does not exsist");
     }
+}
+
+function edit($connection, $username, $email, $password, $avatar)
+{
+    if (isset_notempty($email)) {
+        $sql = "UPDATE users SET email = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $email, $username);
+        $stmt->execute();
+    }
+    if (isset_notempty($password)) {
+        $password = md5($password);
+        $sql = "UPDATE users SET password = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $password, $username);
+        $stmt->execute();
+    }
+    if (isset_notempty($avatar)) {
+        $sql = "UPDATE users SET avatar = ? WHERE username = ?";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param("ss", $avatar, $username);
+        $stmt->send_long_data(0, $avatar);
+        $stmt->execute();
+    }
+    return dataResponse(200, "Updated");
 }
 
 function updateSession($connection, $username, $session)

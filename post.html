@@ -10,60 +10,64 @@
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+
+  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
-    $(function(){
-      $("#banner").load( "header.html", function() {document.getElementById("4").classList.add("active");});//this makes the active link darker + brings in the header
+    $(function () {
+      $("#banner").load("header.html", function () { document.getElementById("4").classList.add("active"); });//this makes the active link darker + brings in the header
       $("#footer").load("footer.html");//brings in the footer
       $("#sb").load("searchbar.html");//brings in the search bar and links
     });
-  </script> 
-  
-  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="./js/frontpage.js"></script>
-  
+  </script>
+
+  <script type="text/javascript" src="./js/post.js"></script>
+
 </head>
 
 <body>
-  <div id="banner"></div><!--brings in header complete with links from html file-->
+  <div id="banner"></div>
+  <!--brings in header complete with links from html file-->
 
   <div class="row">
-    
-    <div id="sb"></div><!--brings in side bar from html file-->
+
+    <div id="sb"></div>
+    <!--brings in side bar from html file-->
 
     <div class="main">
-      <div id="post_template" style="display: none;">
-        <div class="post" data-id="0">
-          <h2 class="post_title">Title of selected post</h2>
-          <h5 class="post_description">
-            <span>Op's username: </span>
-            <span class="post_author">user</span>
-            <span>Date Posted:  </span>
-            <span class="post_date">Date</span>
-          </h5>
-          <p class="post_content"></p>
-        </div>
+      <div class="post" data-id="0">
+        <h2 class="post_title">Title of selected post</h2>
+        <h5 class="post_description">
+          <span>Op's username: </span>
+          <span class="post_author">user</span>
+          <span>Date Posted: </span>
+          <span class="post_date">Date</span>
+        </h5>
+        <p class="post_content"></p>
 
-        <div id="comment_template" style="display: none;">
-          <div class="post" data-id="0">
-              
-            <h5 class="post_description">
-              <span>Op's username: </span>
-              <span class="post_author">user</span>
-              <span>Date Posted:  </span>
-              <span class="post_date">Date</span>
-              <span>Timestamp:  </span>
-              <span class="post_date">Date</span>
-            </h5>
-            <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Comment">Comment</textarea>
-            <p class="post_content"></p>
+        <h3>Comments:</h3>
+        <div id="comments_container">
+          <div id="comment_template" style="display: none;">
+            <div class=" comment" data-id="0">
+              <h5 class="comment_description">
+                <span>Op's username: </span>
+                <span class="comment_author">user</span>
+                <span>Date Posted: </span>
+                <span class="comment_date">Date</span>
+              </h5>
+              <p class="comment_content"></p>
+            </div>
           </div>
         </div>
+
+        <form method="post" action="server/comments.php" id="commentForm">
+          <textarea class="require" rows="4" cols="50" name="content" placeholder="Leave a comment here!"></textarea>
+          <button type="submit">Submit</button>
+        </form>
       </div>
     </div>
   </div>
-  <div id="footer"></div><!--brings in footer from html file-->
+  <div id="footer"></div>
+  <!--brings in footer from html file-->
 </body>
 
 </html>

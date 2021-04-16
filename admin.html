@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-  <!--This page is for searching for a user by name, email or posts they have written-->
+<!--This page is for searching for a user by name, email or posts they have written-->
 
 <head>
   <meta charset="utf-8">
@@ -10,47 +10,85 @@
   <link href="css/header.css" rel="stylesheet">
   <link href="css/columns.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-  <script src="//code.jquery.com/jquery-1.10.2.js"></script><!--need this to run the following script-->
+
+  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
-    $(function(){
-      $("#banner").load( "header.html", function() {document.getElementById("3").classList.add("active");});//this makes the active link darker + brings in the header
+    $(function () {
+      $("#banner").load("header.html", function () { document.getElementById("3").classList.add("active"); });//this makes the active link darker + brings in the header
       $("#footer").load("footer.html");//brings in the footer
       $("#sb").load("searchbar.html");//brings in the search bar and links
     });
-  </script> 
-  
-  <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
-  <script type="text/javascript" src="./js/frontpage.js"></script>
-  
+  </script>
+
+  <script type="text/javascript" src="./js/admin.js"></script>
+
 </head>
 
 <body>
-  <div id="banner"></div><!--brings in header complete with links from html file-->
+  <div id="banner"></div>
+  <!--brings in header complete with links from html file-->
 
   <div class="row">
-    
-    <div id="sb"></div><!--brings in side bar from html file-->
+
+    <div id="sb"></div>
+    <!--brings in side bar from html file-->
 
     <div class="main">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <form class="search" action="">
-           <input type="text" placeholder="Search Users by Name, Email or Post." name="search">
-          <button type="submit"><i class="fa fa-search"></i></button>
+
+      <form id="admin_search" class="search" method="POST" action="./server/admins.php">
+        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post.">
+        <select id="admin_search_option" name="option">
+          <option value="username_email">Username/Email</option>
+          <option value="post">Post</option>
+        </select>
+        <button type="submit"><i class="fa fa-search"></i></button>
       </form>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
-      <br>
-      <h2>User #1 Name: </h2>
-      <h5>Email: </h5>
-      <div class="fakeimg" style="height:200px;">Image</div>
+      <h3 id="search_title">Please search for post/user</h3>
+      <div id="post_template" style="display: none;">
+        <form id="post_template_form" class="post" method="POST">
+          <h5 class="post_description">
+            <span>Posted by: </span>
+            <span class="post_author">author</span>
+            <span> on: </span>
+            <span class="post_date">Dec 7, 2017</span>
+          </h5>
+          <div>
+            <input class="post_title" name="post_title" value="Dicussion #1"></input>
+          </div>
+          <div>
+            <textarea class="post_content" name="post_content">Some default value</textarea>
+          </div>
+          <div>
+            <label for="post_remove">Remove post?</label>
+            <input type="checkbox" id="post_remove" name="post_remove">
+            <button type="submit" class="edit_post">Confirm</button>
+          </div>
+          <hr>
+        </form>
+      </div>
+      <div id="posts_container"></div>
+
+
+      <div id="user_template" style="display: none;">
+        <form id="user_template_form" class="user" method="POST">
+          <h3 id="user_title">
+            <span id="user_title_name">Username</span> -
+            <span id="user_title_email">Email</span>
+          </h3>
+          <label for="user_enable">User enable</label>
+          <input type="checkbox" id="user_enable" name="user_enable">
+          <button type="submit">Confirm</button>
+        </form>
+      </div>
+      <div id="users_container"></div>
+
     </div>
+
   </div>
-  <div id="footer"></div><!--brings in footer from html file-->
+  </div>
+  <div id="footer"></div>
+  <!--brings in footer from html file-->
 </body>
+
 </html>

@@ -57,9 +57,10 @@ function removePost($connection, $post_id, $username, $session)
 
 function getPostsBySearch($connection, $term)
 {
-    $sql = "SELECT * FROM posts WHERE content LIKE %?% OR username LIKE %?%;";
+    $term = "%" . $term . "%";
+    $sql = "SELECT * FROM posts WHERE (content LIKE ?) OR (username LIKE ?) OR (title LIKE ?);";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("ss", $term, $term);
+    $stmt->bind_param("sss", $term, $term, $term);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -68,7 +69,7 @@ function getPostsBySearch($connection, $term)
 
 function getPostById($connection, $post_id)
 {
-    $sql = "SELECT * FROM posts WHERE id = ?;"; 
+    $sql = "SELECT * FROM posts WHERE id = ?;";
     $stmt = $connection->prepare($sql);
     $stmt->bind_param("i", $post_id);
     $stmt->execute();
@@ -82,7 +83,7 @@ function getPostsByUsername($connection, $username)
 {
     $sql = "SELECT * FROM posts WHERE username = ?;";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param("i", $username);
+    $stmt->bind_param("s", $username);
     $stmt->execute();
     $result = $stmt->get_result();
 
@@ -122,4 +123,12 @@ function getPostsTrending($connection, $limit = 5, $offset = 0)
 function getLatestPost($connection)
 {
     return getPostsDESC($connection, 1);
+}
+
+function addToViews($connection, $post_id)
+{
+    $sql = "UPDATE posts SET views = views + 1 WHERE id = ?;";
+    $stmt = $connection->prepare($sql);
+    $stmt->bind_param("i",  $post_id);
+    $stmt->execute();
 }

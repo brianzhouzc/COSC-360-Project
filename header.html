@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <!--This is the header that comes with the user's info and navigation links-->
-  <head>
-    <meta charset="UTF-8">
-    <title>title</title>
-    <link href="css/header.css" rel="stylesheet">
-    <link href="css/columns.css" rel="stylesheet">
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script> 
-  </head>
-
-  <body>
-    <div class="navbar">
-        <h1 class="header">Feddit</h1>
-        <hr>
-        <a href="reddit.html" id="1">Home</a>
-        <a href="login.html" id="2">User</a>
-        <a href="admin.html" id="3">Admin</a>
-        <a href="create.html" id="4">Create</a>
-        <figure>
-            <img src="img/img_avatar.png" alt="Avatar" class="u_info">
-            <figcaption>Guest<br>guest@guest.guest</figcaption><!--need this to be specific to the user logged in-->
-          </figure>
-      </div>
-      
-  </body>
-</html>
+<script type="text/javascript" src="./js/header.js"></script>
+<div class="navbar">
+  <h1 class="header">Feddit</h1>
+  <hr>
+  <a href="reddit.html" id="1">Home</a>
+  <a href="user.html" id="2">User</a>
+  <a href="admin.html" id="3">Admin</a>
+  <a href="create.html" id="4">Create</a>
+  <figure>
+    <img id="avatar" src="img/img_avatar.png" alt="Avatar" class="u_info">
+    <figcaption>
+      <span id="info_username">Hello!</span>
+      <br>
+      <span id="info_login">
+        <a href="user.html">Login/Register</a>
+      </span>
+    </figcaption>
+    <!--need this to be specific to the user logged in-->
+  </figure>
+</div>
