@@ -51,3 +51,8 @@ INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 8","I need a
 INSERT INTO comments (post_id, username, content) VALUES (1, "dvader", "This is a comment");
 INSERT INTO comments (post_id, username, content) VALUES (1, "dvader", "This is a comment too");
 INSERT INTO comments (post_id, username, content) VALUES (1, "parker616", "This also is a comment");
+INSERT INTO comments (post_id, username, content) VALUES (2, "dvader", "This is a comment");
+INSERT INTO comments (post_id, username, content) VALUES (2, "parker616", "This is a comment too");
+INSERT INTO comments (post_id, username, content) VALUES (2, "parker616", "This also is a comment");
+/*Admin*/
+INSERT INTO admins (username) VALUES ("dvader");
