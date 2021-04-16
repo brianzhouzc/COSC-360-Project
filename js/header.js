@@ -3,7 +3,9 @@ if ("username" in sessionStorage && "session" in sessionStorage) {
     var link = '<a href="javascript:logout();">Logout</a>';
     $('#info_username').text("Hello, " + sessionStorage.getItem('username'));
     $('#info_login').html(link);
-}
+    $('#3').attr('style','');
+    $('#4').attr('style','');
+} 
 
 function logout() {
     if ("username" in sessionStorage && "session" in sessionStorage) {
