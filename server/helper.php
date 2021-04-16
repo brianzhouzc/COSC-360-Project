@@ -1,4 +1,51 @@
 <?php
+require_once "Mail.php";
+
+function send_email($to, $email_subject, $email_body)
+{
+    if (class_exists('Mail')) {
+        $host = "smtp.mailgun.org";
+        $username = "postmaster@mg.notaserver.me";
+        $password = "bb53d2de7382d30351cded3d3c89714a-a09d6718-94dc3e25";
+        $port = "587";
+
+        //$to = "test@example.com";
+        $email_from = "donotreply@mg.notaserver.me";
+        //$email_subject = "Awesome Subject line" ;
+        //$email_body = "This is the message body" ;
+        $email_address = "donotreply@mg.notaserver.me";
+        $content = "text/html; charset=utf-8";
+        $mime = "1.0";
+
+        $headers = array(
+            'From' => $email_from,
+            'To' => $to,
+            'Subject' => $email_subject,
+            'Reply-To' => $email_address,
+            'MIME-Version' => $mime,
+            'Content-type' => $content
+        );
+
+        $params = array(
+            'host' => $host,
+            'port' => $port,
+            'auth' => true,
+            'username' => $username,
+            'password' => $password
+        );
+
+        $smtp = Mail::factory('smtp', $params);
+        $mail = $smtp->send($to, $headers, $email_body);
+
+        if (PEAR::isError($mail)) {
+            echo ("<p>" . $mail->getMessage() . "</p>");
+        } else {
+            //echo ("<p>Message sent successfully!</p>");
+        }
+    } else {
+        echo ("Cannot send email, necessary class does not exist.");
+    }
+}
 
 function errorResponse($status, $detail)
 {
