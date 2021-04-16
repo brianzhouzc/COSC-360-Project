@@ -47,19 +47,24 @@
       <h3 id="search_title">Please search for post/user</h3>
       <div id="post_template" style="display: none;">
         <form id="post_template_form" class="post" method="POST">
-          <input class="post_title" name="post_title" value="Dicussion #1"></input>
           <h5 class="post_description">
             <span>Posted by: </span>
             <span class="post_author">author</span>
             <span> on: </span>
             <span class="post_date">Dec 7, 2017</span>
           </h5>
-          <textarea class="post_content" name="post_content">Some default value</textarea>
+          <div>
+            <input class="post_title" name="post_title" value="Dicussion #1"></input>
+          </div>
+          <div>
+            <textarea class="post_content" name="post_content">Some default value</textarea>
+          </div>
           <div>
             <label for="post_remove">Remove post?</label>
             <input type="checkbox" id="post_remove" name="post_remove">
             <button type="submit" class="edit_post">Confirm</button>
           </div>
+          <hr>
         </form>
       </div>
       <div id="posts_container"></div>
@@ -71,6 +76,7 @@
             <span id="user_title_name">Username</span> -
             <span id="user_title_email">Email</span>
           </h3>
+          <label for="user_enable">User enable</label>
           <input type="checkbox" id="user_enable" name="user_enable">
           <button type="submit">Confirm</button>
         </form>
