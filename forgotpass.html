@@ -20,7 +20,7 @@
     });
   </script>
 
-  <script type="text/javascript" src="./js/frontpage.js"></script>
+  <script type="text/javascript" src="./js/forgot.js"></script>
 
 </head>
 
@@ -33,19 +33,47 @@
     <div id="sb"></div>
     <!--brings in side bar from html file-->
     <div class="main">
-      <fieldset id="fieldset3" style="padding-left:50px;">
-        <legend>Forgot Password</legend>
-        <table id="userinfo" cellpadding="5%">
-          <tr>
-            <form method="post" action="server/users.php" id="mainForm">
-              <th>Enter User Email: </th>
-              <th><input type="email" name="email" class="required"></th>
-          </tr>
-          <tr>
-            <th><input type="submit" value="Generate Password Reset Email"></th>
-          </tr>
-        </table>
-      </fieldset>
+      <div>
+        <form method="post" id="forgotForm">
+          <fieldset id="fieldset3" style="padding-left:50px;">
+            <legend>Forgot Password</legend>
+            <table id="userinfo" cellpadding="5%">
+              <tr>
+                <th>Enter User Email: </th>
+                <th><input type="email" name="email" class="required" required></th>
+              </tr>
+              <tr>
+                <th><input type="submit" value="Generate Password Reset Email"></th>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
+
+      <div>
+        <form method="post" id="resetForm">
+          <fieldset id="fieldset3" style="padding-left:50px;">
+            <legend>Reset Password</legend>
+            <table id="userinfo" cellpadding="5%">
+              <tr>
+                <th>Enter User Email: </th>
+                <th><input type="email" name="email" class="required" required></th>
+              </tr>
+              <tr>
+                <th>Enter User Passowrd: </th>
+                <th><input type="password" name="password" class="required" required></th>
+              </tr>
+              <tr>
+                <th>Enter Reset Token: </th>
+                <th><input type="text" name="token" class="required" required></th>
+              </tr>
+              <tr>
+                <th><input type="submit" value="Reset Password"></th>
+              </tr>
+            </table>
+          </fieldset>
+        </form>
+      </div>
     </div>
   </div>
 

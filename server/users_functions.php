@@ -60,12 +60,13 @@ function register($connection, $username, $email, $password, $avatar)
 function forgot($connection, $email, $token, $password)
 {
     $user = getUserByEmail($connection, $email);
-    if (isset($user)) {
-        if (isset($token)) {
+    if (isset_notempty($user)) {
+        if (isset_notempty($token)) {
             if (isset($password)) {
                 if (isset($user['reset_token']) && isset($user['reset_token_timestamp'])) {
                     if (strcmp($token, $user['reset_token']) == 0) {
                         //code sent less than an hour;
+                        $response = '';
                         if ($user['reset_token_timestamp_diff'] < 3600) {
                             // Update password
                             $sql2 = "UPDATE users SET password = ? WHERE email = ?";
@@ -74,15 +75,16 @@ function forgot($connection, $email, $token, $password)
                             $stmt2->bind_param("ss", $password, $email);
                             $stmt2->execute();
                             /**** SEND CONFIRM RESPONSE ****/
-                            return dataResponse(200, "Successfully updated password", array("action" => "forgot"));
+                            $response = dataResponse(200, "Successfully updated password");
                         } else {
-                            // token expired. reset token and token_timestamp to null
-                            $sql2 = "UPDATE users SET reset_token = NULL, reset_token_timestamp = NULL WHERE email = ?;";
-                            $stmt2 = $connection->prepare($sql2);
-                            $stmt2->bind_param("s", $email);
-                            $stmt2->execute();
-                            return errorResponse(400, "Password reset token expired");
+                            $response =  errorResponse(400, "Password reset token expired");
                         }
+                        // Reset token and token_timestamp to null
+                        $sql2 = "UPDATE users SET reset_token = NULL, reset_token_timestamp = NULL WHERE email = ?;";
+                        $stmt2 = $connection->prepare($sql2);
+                        $stmt2->bind_param("s", $email);
+                        $stmt2->execute();
+                        return $response;
                     } else {
                         return errorResponse(400, "Invalid reset token");
                     }
@@ -100,7 +102,10 @@ function forgot($connection, $email, $token, $password)
             $stmt->execute();
             // SEND RESET EMAIL SOMEHOW $token
             // SEND confirm message
+            $msg = "Your password reset token is: " . $token;
+            send_email($email, 'Your reset link for Feddit', $msg);
             return dataResponse(200, "Token sent, check email!");
+            //return dataResponse(200, $msg);
         }
     } else {
         return errorResponse(400, "Email does not exsist");
