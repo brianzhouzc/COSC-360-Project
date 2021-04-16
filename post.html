@@ -14,7 +14,7 @@
   <script type="text/javascript" src="./js/jquery-3.6.0.min.js"></script>
   <script> //Need these functions to load the header, footer, and left column contents(serch bar and links)
     $(function () {
-      $("#banner").load("header.html", function () { document.getElementById("4").classList.add("active"); });//this makes the active link darker + brings in the header
+      $("#banner").load("header.html");//this makes the active link darker + brings in the header
       $("#footer").load("footer.html");//brings in the footer
       $("#sb").load("searchbar.html");//brings in the search bar and links
     });
@@ -58,9 +58,9 @@
             </div>
           </div>
         </div>
-
+        
         <form method="post" action="server/comments.php" id="commentForm">
-          <textarea class="require" rows="4" cols="50" name="content" placeholder="Leave a comment here!"></textarea>
+          <textarea class="require" name="content" placeholder="Leave a comment here!" style="width:80%;"></textarea><br>
           <button type="submit">Submit</button>
         </form>
       </div>
