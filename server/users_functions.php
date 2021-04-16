@@ -41,7 +41,7 @@ function logout($connection, $username, $session)
 function register($connection, $username, $email, $password, $avatar)
 {
     $user = getUserByNameOrEmail($connection, $username, $email);
-    if (isset($user)) {
+    if (isset_notempty($user)) {
         return errorResponse(400, "Username/email already exsists");
     } else {
         $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";

@@ -78,17 +78,7 @@ if (isset($_POST['action'])) {
                     $avatar = ob_get_contents(); // read from buffer
                     ob_end_clean(); // delete buffer
                     if (isset_notempty($username, $email, $password)) {
-                        $sql = "INSERT INTO users (username, email, password, avatar) VALUES (?, ?, ?, ?);";
-
-                        $stmt = $connection->prepare($sql);
-
-                        $stmt->bind_param("sssb", $username, $email, $password, $avatar);
-                        $stmt->send_long_data(3, $avatar);
-
-                        $stmt->execute();
-
-                        $password = md5($password);
-                        $response = register($connection, $username, $email, $password, $avatar);
+                        $response = register($connection, $username, $email, md5($password), $avatar);
                         exitandclose($response, $connection);
                     } else {
                         exit(errorResponse(400, "Missing username/email/password"));
