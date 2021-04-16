@@ -19,7 +19,7 @@ mainForm.onsubmit = function (e) {
         login($('#username').val(), $('#password').val());
     }
     else {
-        $("#message").text("Missing username/password");
+        $("#login_message").text("Missing username/password");
     }
 }
 
@@ -50,7 +50,7 @@ function login(username, password) {
                 document.location = 'reddit.html';
             }, 2000);
         } else if (response.hasOwnProperty('errors')) {
-            $("#message").text(response.errors.detail);
+            $("#login_message").text(response.errors.detail);
             document.querySelectorAll(".required").forEach(function (element) {
                 makeRed(element);
             });

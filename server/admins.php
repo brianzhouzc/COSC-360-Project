@@ -65,6 +65,7 @@ if (isset($_POST['action'])) {
                 } else {
                     exit(errorResponse(400, "Missing post id"));
                 }
+                break;
             case "user":
                 $edit_username = getValueFromKey($_POST, 'edit_username');
                 $enable = getValueFromKey($_POST, 'enable');
@@ -74,6 +75,10 @@ if (isset($_POST['action'])) {
                 } else {
                     exit(errorResponse(400, "Missing username/enable" . $edit_username . $enable));
                 }
+                break;
+            case "isadmin":
+                exit(dataResponse(200, "Is admin"));
+                break;
         }
     } else {
         exit(errorResponse(400, "Unauthroize user"));
