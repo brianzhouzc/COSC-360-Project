@@ -2,20 +2,24 @@
   font-family: Verdana, sans-serif;
 }
 
-.banner {
-    background-size:100% 100%;
-    background-color: #4120d1;
-    overflow: hidden;
+#banner {
+  background-size:100% 100%;
+  background-color: #4120d1;
+  overflow: hidden;
+  /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. 
+  It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed).  */
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 .header {
-    background: #4120d1;
-    color: white;
-    display: inline-block;
-    padding-right: 5vw;
-    padding-left: 0.8vw;
-    padding-bottom: 0;
-    font-size: 3vw;
-    
+  background: #4120d1;
+  color: white;
+  display: inline-block;
+  padding-right: 5vw;
+  padding-left: 0.8vw;
+  padding-bottom: 0;
+  font-size: 3vw;
 }
 /* heading h1 (Title) font size*/
 .header h1 {
@@ -65,11 +69,7 @@ img {
   color: white;
   width: 100%; 
   overflow: hidden;
-  /* Sticky navbar - toggles between relative and fixed, depending on the scroll position. 
-  It is positioned relative until a given offset position is met in the viewport - then it "sticks" in place (like position:fixed). */ 
-  position: -webkit-sticky;
-  position: sticky;
-  top: 0;
+  
 }
   
 /* Style the navigation bar links */
