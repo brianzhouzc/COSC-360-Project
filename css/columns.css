@@ -1,4 +1,4 @@
-*{box-sizing: border-box;}
+*{box-sizing: border-box; font-family: Verdana, sans-serif;}
 /* Column container */
 .row {  
   display: -ms-flexbox; /* IE10 */
