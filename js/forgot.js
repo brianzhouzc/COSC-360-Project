@@ -18,7 +18,7 @@ function forgot(email) {
             console.log(response);
             if (response.hasOwnProperty('data')) {
                 alert(response.data.detail);
-                window.location.reload();
+                document.location = 'user.html';
             } else {
                 alert(response.errors.detail);
             }
@@ -68,6 +68,7 @@ $(document).ready(function () {
             console.log(response);
             if (response.hasOwnProperty('data')) {
                 alert(response.data.detail);
+                window.location = ""
             } else {
                 alert(response.errors.detail);
             }
