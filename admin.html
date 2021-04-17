@@ -35,16 +35,15 @@
 
     <div class="main">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+      <h3 id="search_title">Please search for post/user:</h3>
       <form id="admin_search" class="search" method="POST" action="./server/admins.php">
-        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post." style="width: 50%">
-        <select id="admin_search_option" name="option" style="width: 20%">
+        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post." style="width:75%;">
+        <select id="admin_search_option" name="option">
           <option value="username_email">Username/Email</option>
           <option value="post">Post</option>
         </select>
         <button type="submit"><i class="fa fa-search"></i></button>
       </form>
-      <h3 id="search_title">Please search for post/user</h3>
       <div id="post_template" style="display: none;">
         <form id="post_template_form" class="post" method="POST">
           <h5 class="post_description">
