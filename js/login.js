@@ -47,7 +47,7 @@ function login(username, password) {
                 makeClean(element);
             });
             setTimeout(function () {
-                document.location = 'reddit.html';
+                document.location = 'feddit.html';
             }, 2000);
         } else if (response.hasOwnProperty('errors')) {
             $("#login_message").text(response.errors.detail);
