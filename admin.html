@@ -37,8 +37,8 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
       <form id="admin_search" class="search" method="POST" action="./server/admins.php">
-        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post.">
-        <select id="admin_search_option" name="option">
+        <input id="admin_search_input" name="term" type="text" placeholder="Search Users by Name, Email or Post." style="width: 50%">
+        <select id="admin_search_option" name="option" style="width: 20%">
           <option value="username_email">Username/Email</option>
           <option value="post">Post</option>
         </select>
@@ -54,10 +54,10 @@
             <span class="post_date">Dec 7, 2017</span>
           </h5>
           <div>
-            <input class="post_title" name="post_title" value="Dicussion #1"></input>
+            <input class="post_title" name="post_title" value="Dicussion #1" style="width: 50%"></input>
           </div>
           <div>
-            <textarea class="post_content" name="post_content">Some default value</textarea>
+            <textarea class="post_content" name="post_content" row="5" style="width: 50%">Some default value</textarea>
           </div>
           <div>
             <label for="post_remove">Remove post?</label>
