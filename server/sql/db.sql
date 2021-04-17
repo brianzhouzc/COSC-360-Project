@@ -39,12 +39,12 @@ CREATE TABLE `admins` (
 INSERT INTO users (username, email, password, enable) VALUES ("parker616", "peter@dailybugle.com", "notspidey", 1);
 INSERT INTO users (username, email, password, enable) VALUES ("dvader", "clanker@sithlord.com", "snips", 1);
 /*We need to hardcode posts in now that we have users to write them*/
-INSERT INTO posts (username,title,content) VALUES ("parker616","Title 1", "This post is about my favourite place to get pizza, Joe's Pizza!");
+INSERT INTO posts (username,title,content,views) VALUES ("parker616","Title 1", "This post is about my favourite place to get pizza, Joe's Pizza!", 5);
 INSERT INTO posts (username,title,content) VALUES ("parker616", "Title 2","There's nothing better than New York pizza!");
-INSERT INTO posts (username,title,content) VALUES ("parker616", "Title 3","Does anyone know how to hack Stark indusrtries' firewall?");
+INSERT INTO posts (username,title,content,views) VALUES ("parker616", "Title 3","Does anyone know how to hack Stark indusrtries' firewall?", 8);
 INSERT INTO posts (username,title,content) VALUES ("parker616", "Title 4","You should rent a bike in central park!");
-INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 5","The First Death Star had the best pizza place in the whole galaxy. Rest in peace.");
-INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 6","Wow I love speederbikes.");
+INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 5","The First Death Star had the best pizza place in the whole galaxy. Rest in peace.", 2);
+INSERT INTO posts (username,title,content,views) VALUES ("dvader", "Title 6","Wow I love speederbikes.");
 INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 7","I'm having issues with a faulty protocol droid's memory banks. Can't read the programming language it's written in.");
 INSERT INTO posts (username,title,content) VALUES ("dvader", "Title 8","I need a 'hand' coding my prothstetic arm.");
 /*Comments*/
